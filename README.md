@@ -3,14 +3,13 @@ one repo to rule them all
 
 ```shell
 .
-├── build-all-manifests.sh
 ├── clusters
 │   ├── all-clusters
 │   │   ├── helmcharts
 │   │   │   ├── nginx-ingress
 │   │   │   └── prometheus-operator
 │   │   └── raw
-│   │       ├── generated
+│   │       ├── manifest
 │   │       │   └── allclusters.yaml
 │   │       ├── templates
 │   │       │   └── allclusters.yaml
@@ -18,10 +17,32 @@ one repo to rule them all
 │   │           └── allclusters.yaml
 │   ├── cluster-01
 │   │   ├── cluster-manifest
+│   │   │   ├── manifest
+│   │   │   ├── templates
+│   │   │   │   └── clusters.yaml
+│   │   │   └── values
+│   │   │       └── clusters.yaml
 │   │   └── teams-manifest
+│   │       ├── manifest
+│   │       ├── templates
+│   │       │   └── team.yaml
+│   │       └── values
+│   │           ├── team-01.yaml
+│   │           └── team-02.yaml
 │   └── cluster-02
 │       ├── cluster-manifest
+│       │   ├── manifest
+│       │   ├── templates
+│       │   │   └── clusters.yaml
+│       │   └── values
+│       │       └── clusters.yaml
 │       └── teams-manifest
+│           ├── manifest
+│           ├── templates
+│           │   └── team.yaml
+│           └── values
+│               ├── team-01.yaml
+│               └── team-02.yaml
 ├── go.mod
 ├── k8s-manifestgen
 ├── k8s-onerepo
