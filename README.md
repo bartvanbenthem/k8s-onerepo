@@ -3,8 +3,9 @@
 
 Manage multiple Kubernetes clusters and teams from a single repository.
 * Consistency in configuration across the entire k8s landscape.
-* Separation regarding generic and specific configuration requirements
-* Separation regarding manifest generation and deployment.
+* Separate generic and specific configuration requirements
+* Separate generating configuration and deployment.
+
 
 ## project structure
 ```shell
