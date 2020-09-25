@@ -1,6 +1,12 @@
 # Description
 *"one repo to rule them all"*
 
+Manage multiple Kubernetes clusters and teams from a single repository.
+* Consistency in configuration across the entire k8s landscape.
+* Separate generic and specific configuration requirements
+* Separate generating configuration and deployment.
+
+
 ## project structure
 ```shell
 .
