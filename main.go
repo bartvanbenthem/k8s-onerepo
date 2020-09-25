@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os/exec"
-	"strings"
+
+	"github.com/bartvanbenthem/k8s-manifestgen/client"
 )
 
 func main() {
@@ -14,15 +13,11 @@ func main() {
 	fmt.Println(ac)
 }
 
-func GenerateAllTeamsManifest() {}
-func GenerateAllHelmManifest()  {}
+func GenerateClusterSpecificManifest() {}
+func GenerateClusterHelmManifest()     {}
 
 func GenerateClusterAllManifest(valuesFile, templateFile, outputFolder string) string {
-	cmd := exec.Command("./k8s-manifestgen", valuesFile, templateFile, outputFolder)
-	stdoutStderr, err := cmd.CombinedOutput()
-	if err != nil {
-		log.Printf("Error: %v\n", err)
-	}
-
-	return strings.TrimSuffix(string(stdoutStderr), "\n")
+	var cmg client.ManifestGenClient
+	//build a foreach loop to check all value and template files within their specific dir
+	cmg.GenerateManifestFromValues(valuesFile, templateFile, outputFolder)
 }
