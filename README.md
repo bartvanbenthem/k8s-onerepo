@@ -1,6 +1,8 @@
 # Description
 *"one repo to rule them all"*
 
+Manage multiple Kubernetes clusters and teams from a single repository.
+
 ## project structure
 ```shell
 .
