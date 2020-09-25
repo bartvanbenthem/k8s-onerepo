@@ -7,8 +7,12 @@ one repo to rule them all
 ├── clusters
 │   ├── cluster-all
 │   │   ├── helmcharts
-│   │   │   ├── nginx-ingress
-│   │   │   └── prometheus-operator
+│   │   │   ├── ingress-nginx
+│   │   │   │   ├── Chart.yaml
+│   │   │   │   └── values.yaml
+│   │   │   └── kube-prometheus-stack
+│   │   │       ├── Chart.yaml
+│   │   │       └── values.yaml
 │   │   ├── manifest
 │   │   │   └── allclusters.yaml
 │   │   ├── templates
