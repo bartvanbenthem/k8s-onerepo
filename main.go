@@ -9,13 +9,13 @@ import (
 )
 
 func main() {
-	GenerateClusterAllManifest("clusters/cluster-all/values",
-		"clusters/cluster-all/templates",
-		"clusters/cluster-all/manifest")
+	GenerateClusterAllManifest("values/cluster-all/values",
+		"values/cluster-all/templates", "config/cluster-all")
 }
 
 func GenerateClusterHelmManifest() {}
 
+// needs to read all folders in templates and create these folders in config
 func GenerateClusterSpecificManifest() {}
 
 func GenerateClusterAllManifest(valuesPath, templatePath, outputFolder string) {

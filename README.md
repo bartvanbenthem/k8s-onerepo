@@ -10,29 +10,12 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 ## project structure
 ```shell
 .
-├── clusters
+├── config
 │   ├── cluster-all
-│   │   ├── manifest
-│   │   │   └── allclusters.yaml
-│   │   ├── templates
-│   │   │   └── allclusters.yaml
-│   │   └── values
-│   │       └── allclusters.yaml
+│   │   └── allclusters.yaml
 │   ├── cluster-specific
 │   │   ├── cluster-01
-│   │   │   ├── manifest
-│   │   │   └── values
-│   │   │       ├── cluster.yaml
-│   │   │       ├── team-01.yaml
-│   │   │       └── team-02.yaml
-│   │   ├── cluster-02
-│   │   │   ├── manifest
-│   │   │   └── values
-│   │   │       ├── cluster.yaml
-│   │   │       └── team-01.yaml
-│   │   └── templates
-│   │       ├── cluster.yaml
-│   │       └── team.yaml
+│   │   └── cluster-02
 │   └── helmcharts
 │       ├── ingress-nginx
 │       │   ├── Chart.yaml
@@ -42,11 +25,30 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 │       │   └── values.yaml
 │       └── values
 │           └── values.yaml
+└── values
+    ├── cluster-all
+    │   ├── templates
+    │   │   └── allclusters.yaml
+    │   └── values
+    │       └── allclusters.yaml
+    ├── cluster-specific
+    │   ├── templates
+    │   │   ├── cluster.yaml
+    │   │   └── team.yaml
+    │   ├── values-cluster-01
+    │   │   ├── cluster.yaml
+    │   │   ├── team-01.yaml
+    │   │   └── team-02.yaml
+    │   └── values-cluster-02
+    │       ├── cluster.yaml
+    │       └── team-01.yaml
+    └── helmcharts
+        └── values.yaml
 ├── go.mod
 ├── go.sum
 ├── k8s-onerepo
 ├── main.go
-└── README.md
+├── README.md/=
 ```
 
 ## prerequisites
