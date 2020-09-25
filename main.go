@@ -14,18 +14,19 @@ func main() {
 		"clusters/cluster-all/manifest")
 }
 
+func GenerateClusterHelmManifest() {}
+
 func GenerateClusterSpecificManifest() {}
-func GenerateClusterHelmManifest()     {}
 
 func GenerateClusterAllManifest(valuesPath, templatePath, outputFolder string) {
-
 	valueFiles := ReadFileNames(valuesPath)
 	templateFiles := ReadFileNames(templatePath)
 
 	for _, val := range valueFiles {
 		for _, tmpl := range templateFiles {
 			if tmpl.fileName == val.fileName {
-				client.GenerateManifestFromValues(val.pathAndFile, tmpl.pathAndFile, outputFolder)
+				client.GenerateManifestFromValues(val.pathAndFile,
+					tmpl.pathAndFile, outputFolder)
 			}
 		}
 	}
