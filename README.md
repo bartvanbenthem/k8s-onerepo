@@ -39,7 +39,7 @@ one repo to rule them all
 ```
 
 ## prerequisites
-Install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
-Install Helm: https://helm.sh/docs/intro/install/
+* Install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+* Install Helm: https://helm.sh/docs/intro/install/
 
 
