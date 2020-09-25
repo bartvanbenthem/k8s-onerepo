@@ -17,9 +17,9 @@ func GenerateAllHelmManifest()  {}
 
 func GenerateAllClustersManifest() string {
 	cmd := exec.Command("./k8s-manifestgen",
-		"clusters/all-clusters/raw/values/allclusters.yaml",
-		"clusters/all-clusters/raw/templates/allclusters.yaml",
-		"clusters/all-clusters/raw/manifest")
+		"clusters/cluster-all/values/allclusters.yaml",
+		"clusters/cluster-all/templates/allclusters.yaml",
+		"clusters/cluster-all/manifest")
 	stdoutStderr, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Printf("Error: %v\n", err)

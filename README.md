@@ -15,19 +15,20 @@ one repo to rule them all
 │   │   └── values
 │   │       └── allclusters.yaml
 │   └── cluster-specific
-│       ├── manifest
-│       ├── templates
-│       │   ├── clusters.yaml
-│       │   └── team.yaml
-│       └── values
-│           ├── cluster-01
-│           │   ├── cluster.yaml
-│           │   ├── team-01.yaml
-│           │   └── team-02.yaml
-│           └── cluster-02
-│               ├── cluster.yaml
-│               ├── team-01.yaml
-│               └── team-02.yaml
+│       ├── cluster-01
+│       │   ├── manifest
+│       │   └── values
+│       │       ├── cluster.yaml
+│       │       ├── team-01.yaml
+│       │       └── team-02.yaml
+│       ├── cluster-02
+│       │   ├── manifest
+│       │   └── values
+│       │       ├── cluster.yaml
+│       │       └── team-01.yaml
+│       └── templates
+│           ├── cluster.yaml
+│           └── team.yaml
 ├── go.mod
 ├── go.sum
 ├── k8s-manifestgen
