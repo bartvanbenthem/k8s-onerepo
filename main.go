@@ -15,12 +15,12 @@ func main() {
 
 func GenerateClusterHelmManifest() {}
 
-// needs to read all folders in templates and create these folders in config
+// needs to read all folders in valuesPath and create these folders in config
 func GenerateClusterSpecificManifest() {}
 
 func GenerateClusterAllManifest(valuesPath, templatePath, outputFolder string) {
-	valueFiles := ReadFileNames(valuesPath)
-	templateFiles := ReadFileNames(templatePath)
+	valueFiles := ReadFiles(valuesPath)
+	templateFiles := ReadFiles(templatePath)
 	for _, val := range valueFiles {
 		for _, tmpl := range templateFiles {
 			if tmpl.fileName == val.fileName {
@@ -37,7 +37,7 @@ type FileInfo struct {
 	pathAndFile string
 }
 
-func ReadFileNames(path string) []FileInfo {
+func ReadFiles(path string) []FileInfo {
 	var file FileInfo
 	var files []FileInfo
 
