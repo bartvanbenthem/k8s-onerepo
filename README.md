@@ -1,5 +1,5 @@
 # Description
-one repo to rule them all
+*"one repo to rule them all"*
 
 ## project structure
 ```shell
