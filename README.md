@@ -10,7 +10,6 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 ## project structure
 ```shell
 .
-.
 ├── clusters
 │   ├── cluster-all
 │   │   ├── manifest
@@ -38,8 +37,10 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 │       ├── ingress-nginx
 │       │   ├── Chart.yaml
 │       │   └── values.yaml
-│       └── kube-prometheus-stack
-│           ├── Chart.yaml
+│       ├── kube-prometheus-stack
+│       │   ├── Chart.yaml
+│       │   └── values.yaml
+│       └── values
 │           └── values.yaml
 ├── go.mod
 ├── go.sum
