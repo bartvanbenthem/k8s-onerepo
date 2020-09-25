@@ -48,7 +48,7 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 ├── go.sum
 ├── k8s-onerepo
 ├── main.go
-├── README.md/=
+├── README.md
 ```
 
 ## prerequisites
