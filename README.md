@@ -1,6 +1,7 @@
-# k8s-onerepo
+# Description
 one repo to rule them all
 
+## project structure
 ```shell
 .
 ├── clusters
@@ -36,3 +37,9 @@ one repo to rule them all
 ├── main.go
 └── README.md
 ```
+
+## prerequisites
+* Install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+* Install Helm: https://helm.sh/docs/intro/install/
+
+
