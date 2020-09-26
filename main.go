@@ -8,15 +8,31 @@ import (
 	"github.com/bartvanbenthem/k8s-manifestgen/client"
 )
 
+// Declare all project path variables
+const clusterAllValues string = "values/cluster-all/values"
+const clusterAllTemplates string = "values/cluster-all/templates"
+const clusterAllConfig string = "config/cluster-all"
+const clusterSpecValues string = ""
+const clusterSpecTemplates string = ""
+const clusterSpecConfig string = ""
+const clusterHelmValues string = ""
+const clusterHelmTemplates string = ""
+const clusterHelmConfig string = ""
+
 func main() {
-	GenerateClusterAllManifest("values/cluster-all/values",
-		"values/cluster-all/templates", "config/cluster-all")
+	// start manigest generation for cluster-all
+	fmt.Printf("Generate Cluster-all manifests...\n")
+	GenerateClusterAllManifest(clusterAllValues, clusterAllTemplates, clusterAllConfig)
+	cfgAll := ReadFiles(clusterAllConfig)
+	for _, f := range cfgAll {
+		fmt.Printf("%v\n", f.pathAndFile)
+	}
 }
 
-func GenerateClusterHelmManifest() {}
+func GenerateClusterHelmManifests() {}
 
 // needs to read all folders in valuesPath and create these folders in config
-func GenerateClusterSpecificManifest() {}
+func GenerateClusterSpecificManifests() {}
 
 func GenerateClusterAllManifest(valuesPath, templatePath, outputFolder string) {
 	valueFiles := ReadFiles(valuesPath)
