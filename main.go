@@ -17,7 +17,7 @@ const clusterAllConfig string = "config/cluster-all"
 const clusterSpecValues string = "values/cluster-specific/values"
 const clusterSpecTemplates string = "values/cluster-specific/templates"
 const clusterSpecConfig string = "config/cluster-specific"
-const clusterHelmValues string = ""
+const clusterHelmValues string = "values/helmcharts"
 const clusterHelmTemplates string = ""
 const clusterHelmConfig string = ""
 
