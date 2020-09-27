@@ -41,3 +41,66 @@ spec:
       cpu: "200m"
       memory: 256Mi
     type: Container
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: pods-high
+    namespace: test-team-two
+  spec:
+    hard:
+      cpu: "10"
+      memory: 200Gi
+      pods: "10"
+    scopeSelector:
+      matchExpressions:
+      - operator : In
+        scopeName: PriorityClass
+        values: ["high"]
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: pods-medium
+    namespace: test-team-two
+  spec:
+    hard:
+      cpu: "5"
+      memory: 20Gi
+      pods: "10"
+    scopeSelector:
+      matchExpressions:
+      - operator : In
+        scopeName: PriorityClass
+        values: ["medium"]
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: pods-low
+    namespace: test-team-two
+  spec:
+    hard:
+      cpu: "1"
+      memory: 10Gi
+      pods: "10"
+    scopeSelector:
+      matchExpressions:
+      - operator : In
+        scopeName: PriorityClass
+        values: ["low"]
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: object-quota
+    namespace: test-team-two
+  spec:
+    hard:
+      pods: 50
+      persistentvolumeclaims: 10
+      replicationcontrollers: 0
+      resourcequotas: 1
+      services: 20
+      services.loadbalancers: 0
+      services.nodeports: 0

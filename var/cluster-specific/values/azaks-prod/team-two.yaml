@@ -7,3 +7,12 @@ labelowner: myteamone
 groupid: 7345435-345345-45-55555555
 limitsmaxcpu: 1000m
 limitsmaxmem: 3Gi
+resourcequota:
+  pods: "50"
+  persistentvolumeclaims: "10"
+  replicationcontrollers: "0"
+  resourcequotas: "1"
+  services: "20"
+  servicesloadbalancers: "0"
+  servicesnodeports: "0"
+  

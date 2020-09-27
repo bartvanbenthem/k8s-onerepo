@@ -31,7 +31,7 @@ func (c *ManifestGenClient) GenerateManifestFromValues(pathValuesFile, pathTempl
 		log.Printf("Error: %v\n", err)
 	}
 	// create a map to store the unmarshalled byte slice
-	var values map[string]string
+	var values map[string]interface{}
 
 	// unmarshal byte slice into the values map
 	err = yaml.Unmarshal(byteValue, &values)

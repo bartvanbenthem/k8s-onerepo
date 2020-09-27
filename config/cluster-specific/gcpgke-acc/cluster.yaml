@@ -1,14 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: co-ingress
-  labels:
-    owner: cloud-ops
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: co-monitoring
+  name: co-specific-gcp
   labels:
     owner: cloud-ops
 ---
