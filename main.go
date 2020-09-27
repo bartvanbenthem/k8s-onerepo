@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.com/bartvanbenthem/k8s-manifestgen/client"
+	"github.com/bartvanbenthem/k8s-onerepo/utils/manifestgen"
 )
 
 // Declare all project path variables
@@ -35,12 +35,13 @@ func GenerateClusterHelmManifests() {}
 func GenerateClusterSpecificManifests() {}
 
 func GenerateClusterAllManifest(valuesPath, templatePath, outputFolder string) {
+	var cmg manifestgen.ManifestGenClient
 	valueFiles := ReadFiles(valuesPath)
 	templateFiles := ReadFiles(templatePath)
 	for _, val := range valueFiles {
 		for _, tmpl := range templateFiles {
 			if tmpl.fileName == val.fileName {
-				client.GenerateManifestFromValues(val.pathAndFile,
+				cmg.GenerateManifestFromValues(val.pathAndFile,
 					tmpl.pathAndFile, outputFolder)
 			}
 		}
