@@ -84,9 +84,7 @@ func GenerateClusterManifests(valuesPath, templatePath, outputFolder string) {
 				}
 			}
 		}
-
 	}
-
 }
 
 type FileInfo struct {
