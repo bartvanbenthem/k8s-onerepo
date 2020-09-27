@@ -17,6 +17,7 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 │       ├── ingress-nginx
 │       └── kube-prometheus-stack
 ├── utils
+│   └── deploy
 │   └── manifestgen
 └── values
     ├── cluster-all
