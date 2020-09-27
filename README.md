@@ -19,7 +19,7 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 ├── utils
 │   └── deploy
 │   └── manifestgen
-└── values
+└── var
     ├── cluster-all
     │   ├── templates
     │   └── values
