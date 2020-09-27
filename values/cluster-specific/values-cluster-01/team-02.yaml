@@ -1,9 +1,0 @@
-teamname: team-two
-namespace: test-team-two
-labelcompany: mycompany
-labeldepartment: mydepartment
-labelapplication: app
-labelowner: myteamone
-groupid: 7345435-345345-45-6546456-34535
-limitsmaxcpu: 1000m
-limitsmaxmem: 3Gi

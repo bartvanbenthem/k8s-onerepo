@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
+	"strings"
 
 	"github.com/bartvanbenthem/k8s-onerepo/utils/manifestgen"
 )
@@ -12,9 +14,9 @@ import (
 const clusterAllValues string = "values/cluster-all/values"
 const clusterAllTemplates string = "values/cluster-all/templates"
 const clusterAllConfig string = "config/cluster-all"
-const clusterSpecValues string = ""
-const clusterSpecTemplates string = ""
-const clusterSpecConfig string = ""
+const clusterSpecValues string = "values/cluster-specific/values"
+const clusterSpecTemplates string = "values/cluster-specific/templates"
+const clusterSpecConfig string = "config/cluster-specific"
 const clusterHelmValues string = ""
 const clusterHelmTemplates string = ""
 const clusterHelmConfig string = ""
@@ -27,12 +29,17 @@ func main() {
 	for _, f := range cfgAll {
 		fmt.Printf("%v\n", f.pathAndFile)
 	}
+
+	// start manigest generation for cluster-specific
+	fmt.Printf("Generate Cluster-specific manifests...\n")
+	GenerateClusterManifests(clusterSpecValues, clusterSpecTemplates, clusterSpecConfig)
+	cfgSpec := ReadFiles(clusterSpecConfig)
+	for _, f := range cfgSpec {
+		fmt.Printf("%v\n", f.pathAndFile)
+	}
 }
 
 func GenerateClusterHelmManifests() {}
-
-// needs to read all folders in valuesPath and create these folders in config
-func GenerateClusterSpecificManifests() {}
 
 func GenerateClusterAllManifest(valuesPath, templatePath, outputFolder string) {
 	var cmg manifestgen.ManifestGenClient
@@ -46,6 +53,40 @@ func GenerateClusterAllManifest(valuesPath, templatePath, outputFolder string) {
 			}
 		}
 	}
+}
+
+func GenerateClusterManifests(valuesPath, templatePath, outputFolder string) {
+	var cmg manifestgen.ManifestGenClient
+	var folders []string
+	valueDir := ReadFiles(valuesPath)
+	for _, folder := range valueDir {
+		folders = append(folders, folder.fileName)
+	}
+
+	for _, folder := range folders {
+		outputPathCluster := fmt.Sprintf("%v/%v", outputFolder, folder)
+		if _, err := os.Stat(outputPathCluster); os.IsNotExist(err) {
+			err := os.Mkdir(outputPathCluster, 0755)
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
+		// combine value files and template files
+		valueFiles := ReadFiles(fmt.Sprintf("%v/%v", valuesPath, folder))
+		templateFiles := ReadFiles(fmt.Sprintf("%v", templatePath))
+		for _, val := range valueFiles {
+			filename := strings.Split(val.fileName, "-")
+			for _, tmpl := range templateFiles {
+				if tmpl.fileName == fmt.Sprintf("%v.yaml", filename[0]) ||
+					tmpl.fileName == val.fileName {
+					cmg.GenerateManifestFromValues(val.pathAndFile,
+						tmpl.pathAndFile, outputPathCluster)
+				}
+			}
+		}
+
+	}
+
 }
 
 type FileInfo struct {
