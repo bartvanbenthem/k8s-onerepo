@@ -1,5 +1,0 @@
-ingress-nginx:
-  namespace: co-ingress 
-
-kube-prometheus-stack:
-  namespace: co-monitoring
