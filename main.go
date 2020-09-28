@@ -22,6 +22,14 @@ const clusterHelmTemplates string = "var/helmcharts/templates"
 const clusterHelmConfig string = "config/helmcharts"
 
 func main() {
+	// create base dirs in config
+	fmt.Printf("Check config base dirs...\n")
+	GenerateConfigBaseDirs("var", "config")
+	cfg := ReadFiles("config")
+	for _, f := range cfg {
+		fmt.Printf("%v\n", f.pathAndFile)
+	}
+
 	// start manigest generation for cluster-all
 	fmt.Printf("Generate Cluster-all manifests...\n")
 	GenerateClusterAllManifest(clusterAllValues, clusterAllTemplates, clusterAllConfig)
@@ -82,6 +90,24 @@ func GenerateClusterManifests(valuesPath, templatePath, outputFolder string) {
 					cmg.GenerateManifestFromValues(val.pathAndFile,
 						tmpl.pathAndFile, outputPathCluster)
 				}
+			}
+		}
+	}
+}
+
+func GenerateConfigBaseDirs(varDir, configDir string) {
+	var folders []string
+	valueDir := ReadFiles(varDir)
+	for _, folder := range valueDir {
+		folders = append(folders, folder.fileName)
+	}
+
+	for _, folder := range folders {
+		outputPathCluster := fmt.Sprintf("%v/%v", configDir, folder)
+		if _, err := os.Stat(outputPathCluster); os.IsNotExist(err) {
+			err := os.Mkdir(outputPathCluster, 0755)
+			if err != nil {
+				log.Fatal(err)
 			}
 		}
 	}
