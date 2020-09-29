@@ -14,8 +14,6 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 │   ├── cluster-all
 │   ├── cluster-specific
 │   └── helmcharts
-│       ├── ingress-nginx
-│       └── kube-prometheus-stack
 ├── utils
 │   └── deploy
 │   └── manifestgen
@@ -27,8 +25,8 @@ Manage multiple Kubernetes clusters and teams from a single repository.
     │   ├── templates
     │   └── values
     └── helmcharts
-        ├── kube-prometheus-stack
-        └── nginx-ingress
+    │   ├── templates
+    │   └── values
 ```
 
 ## prerequisites
