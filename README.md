@@ -26,8 +26,8 @@ Manage multiple Kubernetes clusters and teams from a single repository.
     │   ├── templates
     │   └── values
     └── helmcharts
-    │   ├── templates
-    │   └── values
+        ├── templates
+        └── values
 ```
 
 ## prerequisites
