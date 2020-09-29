@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"strings"
 
+	"github.com/bartvanbenthem/k8s-onerepo/utils/filesystem"
 	"github.com/bartvanbenthem/k8s-onerepo/utils/manifestgen"
 )
 
@@ -25,51 +25,77 @@ func main() {
 	// create base dirs in config
 	fmt.Printf("Check config base dirs...\n")
 	CreateConfigBaseDirs("var", "config")
-	cfg := ReadFiles("config")
+	cfg, _ := filesystem.ReadFiles("config")
 	for _, f := range cfg {
-		fmt.Printf("%v\n", f.pathAndFile)
+		fmt.Printf("%v\n", f.PathAndFile)
 	}
 
 	// start manigest generation for cluster-all
 	fmt.Printf("Generate Cluster-all manifests...\n")
 	GenerateClusterAllManifest(clAllValues, clAllTemplates, clAllConfig)
-	cfgAll := ReadFiles(clAllConfig)
+	cfgAll, _ := filesystem.ReadFiles(clAllConfig)
 	for _, f := range cfgAll {
-		fmt.Printf("%v\n", f.pathAndFile)
+		fmt.Printf("%v\n", f.PathAndFile)
 	}
 
 	// start manigest generation for cluster-specific
 	fmt.Printf("Generate Cluster-specific manifests...\n")
 	GenerateClusterManifests(clSpecValues, clSpecTemplates, clSpecConfig)
-	cfgSpec := ReadFiles(clSpecConfig)
+	cfgSpec, _ := filesystem.ReadFiles(clSpecConfig)
 	for _, f := range cfgSpec {
-		fmt.Printf("%v\n", f.pathAndFile)
+		fmt.Printf("%v\n", f.PathAndFile)
+	}
+
+	fmt.Printf("Copy helmcharts to config...\n")
+	CopyHelmTemplatesToConfig(clHelmTemplates, clHelmConfig)
+	fmt.Println("finished")
+
+}
+
+func CopyHelmTemplatesToConfig(sourceDir, destinationDir string) {
+	err := filesystem.CopyDir(sourceDir, destinationDir)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 
-func CopyHelmTemplatesToConfig() {}
-func GenerateHelmValueFile()     {}
+func GenerateHelmValueFile() {}
 
 func GenerateClusterAllManifest(valuesPath, templatePath, outputFolder string) {
+
 	var cmg manifestgen.ManifestGenClient
-	valueFiles := ReadFiles(valuesPath)
-	templateFiles := ReadFiles(templatePath)
+	valueFiles, err := filesystem.ReadFiles(valuesPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	templateFiles, err := filesystem.ReadFiles(templatePath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	for _, val := range valueFiles {
 		for _, tmpl := range templateFiles {
-			if tmpl.fileName == val.fileName {
-				cmg.GenerateManifestFromValues(val.pathAndFile,
-					tmpl.pathAndFile, outputFolder)
+			if tmpl.FileName == val.FileName {
+				cmg.GenerateManifestFromValues(val.PathAndFile,
+					tmpl.PathAndFile, outputFolder)
 			}
 		}
 	}
 }
 
 func GenerateClusterManifests(valuesPath, templatePath, outputFolder string) {
+
 	var cmg manifestgen.ManifestGenClient
 	var folders []string
-	valueDir := ReadFiles(valuesPath)
+
+	valueDir, err := filesystem.ReadFiles(valuesPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	for _, folder := range valueDir {
-		folders = append(folders, folder.fileName)
+		folders = append(folders, folder.FileName)
 	}
 
 	for _, folder := range folders {
@@ -81,15 +107,23 @@ func GenerateClusterManifests(valuesPath, templatePath, outputFolder string) {
 			}
 		}
 		// combine value files and template files
-		valueFiles := ReadFiles(fmt.Sprintf("%v/%v", valuesPath, folder))
-		templateFiles := ReadFiles(fmt.Sprintf("%v", templatePath))
+		valueFiles, err := filesystem.ReadFiles(fmt.Sprintf("%v/%v", valuesPath, folder))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		templateFiles, err := filesystem.ReadFiles(fmt.Sprintf("%v", templatePath))
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		for _, val := range valueFiles {
-			filename := strings.Split(val.fileName, "-")
+			filename := strings.Split(val.FileName, "-")
 			for _, tmpl := range templateFiles {
-				if tmpl.fileName == fmt.Sprintf("%v.yaml", filename[0]) ||
-					tmpl.fileName == val.fileName {
-					cmg.GenerateManifestFromValues(val.pathAndFile,
-						tmpl.pathAndFile, outputPathCluster)
+				if tmpl.FileName == fmt.Sprintf("%v.yaml", filename[0]) ||
+					tmpl.FileName == val.FileName {
+					cmg.GenerateManifestFromValues(val.PathAndFile,
+						tmpl.PathAndFile, outputPathCluster)
 				}
 			}
 		}
@@ -98,9 +132,14 @@ func GenerateClusterManifests(valuesPath, templatePath, outputFolder string) {
 
 func CreateConfigBaseDirs(varDir, configDir string) {
 	var folders []string
-	valueDir := ReadFiles(varDir)
+
+	valueDir, err := filesystem.ReadFiles(varDir)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	for _, folder := range valueDir {
-		folders = append(folders, folder.fileName)
+		folders = append(folders, folder.FileName)
 	}
 
 	for _, folder := range folders {
@@ -114,15 +153,17 @@ func CreateConfigBaseDirs(varDir, configDir string) {
 	}
 }
 
-type FileInfo struct {
+/*
+
+type Files struct {
 	fileName    string
 	filePath    string
 	pathAndFile string
 }
 
-func ReadFiles(path string) []FileInfo {
-	var file FileInfo
-	var files []FileInfo
+func ReadFiles(path string) []Files {
+	var file Files
+	var files []Files
 
 	fs, err := ioutil.ReadDir(path)
 	if err != nil {
@@ -138,3 +179,62 @@ func ReadFiles(path string) []FileInfo {
 
 	return files
 }
+
+func CopyFile(src, dst string) error {
+	var err error
+	var srcfd *os.File
+	var dstfd *os.File
+	var srcinfo os.FileInfo
+
+	if srcfd, err = os.Open(src); err != nil {
+		return err
+	}
+	defer srcfd.Close()
+
+	if dstfd, err = os.Create(dst); err != nil {
+		return err
+	}
+	defer dstfd.Close()
+
+	if _, err = io.Copy(dstfd, srcfd); err != nil {
+		return err
+	}
+	if srcinfo, err = os.Stat(src); err != nil {
+		return err
+	}
+	return os.Chmod(dst, srcinfo.Mode())
+}
+
+func CopyDir(src string, dst string) error {
+	var err error
+	var fds []os.FileInfo
+	var srcinfo os.FileInfo
+
+	if srcinfo, err = os.Stat(src); err != nil {
+		return err
+	}
+
+	if err = os.MkdirAll(dst, srcinfo.Mode()); err != nil {
+		return err
+	}
+
+	if fds, err = ioutil.ReadDir(src); err != nil {
+		return err
+	}
+	for _, fd := range fds {
+		srcfp := path.Join(src, fd.Name())
+		dstfp := path.Join(dst, fd.Name())
+
+		if fd.IsDir() {
+			if err = CopyDir(srcfp, dstfp); err != nil {
+				fmt.Println(err)
+			}
+		} else {
+			if err = CopyFile(srcfp, dstfp); err != nil {
+				fmt.Println(err)
+			}
+		}
+	}
+	return nil
+}
+*/
