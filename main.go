@@ -47,7 +47,8 @@ func main() {
 	}
 }
 
-func GenerateHelmValueFile() {}
+func CopyHelmTemplatesToConfig() {}
+func GenerateHelmValueFile()     {}
 
 func GenerateClusterAllManifest(valuesPath, templatePath, outputFolder string) {
 	var cmg manifestgen.ManifestGenClient
