@@ -3,10 +3,10 @@ kind: Namespace
 metadata:
   name: {{.namespace}}
   labels:
-    company: {{.labelcompany}}
-    department: {{.labeldepartment}}
-    application: {{.labelapplication}}
-    owner: {{.labelowner}}
+    company: {{.labels.company}}
+    department: {{.labels.department}}
+    application: {{.labels.application}}
+    owner: {{.labels.owner}}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding

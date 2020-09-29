@@ -3,12 +3,12 @@ kind: Namespace
 metadata:
   name: co-ingress
   labels:
-    owner: {{.labelowner}}
+    owner: {{.labels.owner}}
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: co-monitoring
   labels:
-    owner: {{.labelowner}}
+    owner: {{.labels.owner}}
 ---

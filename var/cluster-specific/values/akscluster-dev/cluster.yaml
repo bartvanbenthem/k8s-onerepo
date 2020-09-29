@@ -1,5 +1,8 @@
 cloudprovider: azure
 admingroup: 7345435-345345-45-6546456-34535
-labelowner: cloud-ops
+
+labels:
+  owner: cloud-ops
+
 limitsmaxcpu: 2000m
 limitsmaxmem: 4Gi

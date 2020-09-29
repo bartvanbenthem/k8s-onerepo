@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: co-specific-rancher
   labels:
-    owner: cloud-ops
+    owner: 
 ---
 apiVersion: v1
 kind: LimitRange
