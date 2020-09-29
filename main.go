@@ -33,21 +33,25 @@ func main() {
 	// start manigest generation for cluster-all
 	fmt.Printf("Generate Cluster-all manifests...\n")
 	GenerateClusterAllManifest(clAllValues, clAllTemplates, clAllConfig)
-	cfgAll, _ := filesystem.ReadFiles(clAllConfig)
-	for _, f := range cfgAll {
+	cfg, _ = filesystem.ReadFiles(clAllConfig)
+	for _, f := range cfg {
 		fmt.Printf("%v\n", f.PathAndFile)
 	}
 
 	// start manigest generation for cluster-specific
 	fmt.Printf("Generate Cluster-specific manifests...\n")
 	GenerateClusterManifests(clSpecValues, clSpecTemplates, clSpecConfig)
-	cfgSpec, _ := filesystem.ReadFiles(clSpecConfig)
-	for _, f := range cfgSpec {
+	cfg, _ = filesystem.ReadFiles(clSpecConfig)
+	for _, f := range cfg {
 		fmt.Printf("%v\n", f.PathAndFile)
 	}
 
 	fmt.Printf("Copy helmcharts to config...\n")
 	CopyHelmTemplatesToConfig(clHelmTemplates, clHelmConfig)
+	cfg, _ = filesystem.ReadFiles(clHelmConfig)
+	for _, f := range cfg {
+		fmt.Printf("%v\n", f.PathAndFile)
+	}
 	fmt.Println("finished")
 
 }
