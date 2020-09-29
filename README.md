@@ -27,12 +27,8 @@ Manage multiple Kubernetes clusters and teams from a single repository.
     │   ├── templates
     │   └── values
     └── helmcharts
-        ├── templates
-        │   ├── kube-prometheus-stack
-        │   └── nginx-ingress
-        └── values
-            ├── kube-prometheus-stack
-            └── nginx-ingress
+        ├── kube-prometheus-stack
+        └── nginx-ingress
 ```
 
 ## prerequisites
