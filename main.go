@@ -11,20 +11,20 @@ import (
 )
 
 // Declare all project path variables
-const clusterAllValues string = "var/cluster-all/values"
-const clusterAllTemplates string = "var/cluster-all/templates"
-const clusterAllConfig string = "config/cluster-all"
-const clusterSpecValues string = "var/cluster-specific/values"
-const clusterSpecTemplates string = "var/cluster-specific/templates"
-const clusterSpecConfig string = "config/cluster-specific"
-const clusterHelmValues string = "var/helmcharts/values"
-const clusterHelmTemplates string = "var/helmcharts/templates"
-const clusterHelmConfig string = "config/helmcharts"
+const clAllValues string = "var/cluster-all/values"
+const clAllTemplates string = "var/cluster-all/templates"
+const clAllConfig string = "config/cluster-all"
+const clSpecValues string = "var/cluster-specific/values"
+const clSpecTemplates string = "var/cluster-specific/templates"
+const clSpecConfig string = "config/cluster-specific"
+const clHelmValues string = "var/helmcharts/values"
+const clHelmTemplates string = "var/helmcharts/templates"
+const clHelmConfig string = "config/helmcharts"
 
 func main() {
 	// create base dirs in config
 	fmt.Printf("Check config base dirs...\n")
-	GenerateConfigBaseDirs("var", "config")
+	CreateConfigBaseDirs("var", "config")
 	cfg := ReadFiles("config")
 	for _, f := range cfg {
 		fmt.Printf("%v\n", f.pathAndFile)
@@ -32,22 +32,23 @@ func main() {
 
 	// start manigest generation for cluster-all
 	fmt.Printf("Generate Cluster-all manifests...\n")
-	GenerateClusterAllManifest(clusterAllValues, clusterAllTemplates, clusterAllConfig)
-	cfgAll := ReadFiles(clusterAllConfig)
+	GenerateClusterAllManifest(clAllValues, clAllTemplates, clAllConfig)
+	cfgAll := ReadFiles(clAllConfig)
 	for _, f := range cfgAll {
 		fmt.Printf("%v\n", f.pathAndFile)
 	}
 
 	// start manigest generation for cluster-specific
 	fmt.Printf("Generate Cluster-specific manifests...\n")
-	GenerateClusterManifests(clusterSpecValues, clusterSpecTemplates, clusterSpecConfig)
-	cfgSpec := ReadFiles(clusterSpecConfig)
+	GenerateClusterManifests(clSpecValues, clSpecTemplates, clSpecConfig)
+	cfgSpec := ReadFiles(clSpecConfig)
 	for _, f := range cfgSpec {
 		fmt.Printf("%v\n", f.pathAndFile)
 	}
 }
 
-func GenerateClusterHelmManifests() {}
+func CopyHelmManifests()     {}
+func GenerateHelmManifests() {}
 
 func GenerateClusterAllManifest(valuesPath, templatePath, outputFolder string) {
 	var cmg manifestgen.ManifestGenClient
@@ -95,7 +96,7 @@ func GenerateClusterManifests(valuesPath, templatePath, outputFolder string) {
 	}
 }
 
-func GenerateConfigBaseDirs(varDir, configDir string) {
+func CreateConfigBaseDirs(varDir, configDir string) {
 	var folders []string
 	valueDir := ReadFiles(varDir)
 	for _, folder := range valueDir {
