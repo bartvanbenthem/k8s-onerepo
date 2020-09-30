@@ -1,0 +1,5 @@
+controller:
+  replicaCount: {{.nginx.replicacount}}
+  ingressClass: {{.nginx.ingressclass}}
+  prometheus:
+    create: {{.nginx.prometheus}}

@@ -11,14 +11,10 @@ import (
 )
 
 // Declare all project path variables
-const clAllValues string = "var/cluster-all/values"
-const clAllTemplates string = "var/cluster-all/templates"
-const clAllConfig string = "config/cluster-all"
-const clSpecValues string = "var/cluster-specific/values"
-const clSpecTemplates string = "var/cluster-specific/templates"
-const clSpecConfig string = "config/cluster-specific"
-const clHelmValues string = "var/helmcharts/values"
-const clHelmTemplates string = "var/helmcharts/templates"
+const clValues string = "var/clusters/values"
+const clTemplates string = "var/clusters/templates"
+const clConfig string = "config/clusters"
+const clHelmTemplates string = "var/helmcharts"
 const clHelmConfig string = "config/helmcharts"
 
 func main() {
@@ -30,23 +26,15 @@ func main() {
 		fmt.Printf("%v\n", f.PathAndFile)
 	}
 
-	// start manigest generation for cluster-all
-	fmt.Printf("Generate Cluster-all manifests...\n")
-	GenerateClusterAllManifest(clAllValues, clAllTemplates, clAllConfig)
-	cfg, _ = filesystem.ReadFiles(clAllConfig)
-	for _, f := range cfg {
-		fmt.Printf("%v\n", f.PathAndFile)
-	}
-
 	// start manigest generation for cluster-specific
-	fmt.Printf("Generate Cluster-specific manifests...\n")
-	GenerateClusterManifests(clSpecValues, clSpecTemplates, clSpecConfig)
-	cfg, _ = filesystem.ReadFiles(clSpecConfig)
+	fmt.Printf("\nGenerate Cluster manifests...\n")
+	GenerateClusterManifests(clValues, clTemplates, clConfig)
+	cfg, _ = filesystem.ReadFiles(clConfig)
 	for _, f := range cfg {
 		fmt.Printf("%v\n", f.PathAndFile)
 	}
 
-	fmt.Printf("Copy helmcharts to config...\n")
+	fmt.Printf("\nCopy helmcharts to config...\n")
 	CopyHelmTemplatesToConfig(clHelmTemplates, clHelmConfig)
 	cfg, _ = filesystem.ReadFiles(clHelmConfig)
 	for _, f := range cfg {
@@ -54,38 +42,6 @@ func main() {
 	}
 	fmt.Println("finished")
 
-}
-
-func CopyHelmTemplatesToConfig(sourceDir, destinationDir string) {
-	err := filesystem.CopyDir(sourceDir, destinationDir)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func GenerateHelmValueFile() {}
-
-func GenerateClusterAllManifest(valuesPath, templatePath, outputFolder string) {
-
-	var cmg manifestgen.ManifestGenClient
-	valueFiles, err := filesystem.ReadFiles(valuesPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	templateFiles, err := filesystem.ReadFiles(templatePath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	for _, val := range valueFiles {
-		for _, tmpl := range templateFiles {
-			if tmpl.FileName == val.FileName {
-				cmg.GenerateManifestFromValues(val.PathAndFile,
-					tmpl.PathAndFile, outputFolder)
-			}
-		}
-	}
 }
 
 func GenerateClusterManifests(valuesPath, templatePath, outputFolder string) {
@@ -122,15 +78,24 @@ func GenerateClusterManifests(valuesPath, templatePath, outputFolder string) {
 		}
 
 		for _, val := range valueFiles {
-			filename := strings.Split(val.FileName, "-")
+			valfilename := strings.Split(val.FileName, "-")
+			v := fmt.Sprintf("%v.yaml", valfilename[0])
 			for _, tmpl := range templateFiles {
-				if tmpl.FileName == fmt.Sprintf("%v.yaml", filename[0]) ||
-					tmpl.FileName == val.FileName {
+				tmplfilename := strings.Split(tmpl.FileName, "-")
+				t := fmt.Sprintf("%v.yaml", tmplfilename[0])
+				if t == v || tmpl.FileName == val.FileName {
 					cmg.GenerateManifestFromValues(val.PathAndFile,
 						tmpl.PathAndFile, outputPathCluster)
 				}
 			}
 		}
+	}
+}
+
+func CopyHelmTemplatesToConfig(sourceDir, destinationDir string) {
+	err := filesystem.CopyDir(sourceDir, destinationDir)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 

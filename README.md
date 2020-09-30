@@ -11,23 +11,17 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 ```shell
 .
 ├── config
-│   ├── cluster-all
-│   ├── cluster-specific
+│   ├── clusters
 │   └── helmcharts
 ├── utils
 │   └── deploy
 │   └── filesystem
 │   └── manifestgen
 └── var
-    ├── cluster-all
-    │   ├── templates
-    │   └── values
-    ├── cluster-specific
+    ├── clusters
     │   ├── templates
     │   └── values
     └── helmcharts
-        ├── templates
-        └── values
 ```
 
 ## prerequisites

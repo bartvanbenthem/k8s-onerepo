@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: co-ingress
+  labels:
+    owner: {{.labels.owner}}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: co-monitoring
+  labels:
+    owner: {{.labels.owner}}
+---
