@@ -14,7 +14,6 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 │   ├── clusters
 │   └── helmcharts
 ├── utils
-│   └── deploy
 │   └── filesystem
 │   └── manifestgen
 └── var

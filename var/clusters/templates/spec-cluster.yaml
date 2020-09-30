@@ -8,19 +8,19 @@ metadata:
 apiVersion: v1
 kind: LimitRange
 metadata:
-  name: default-limit-range
+  name: limit-mem-cpu-per-container
 spec:
   limits:
-  - default:
-      cpu: "200m"
-      memory: 512Mi
-    defaultRequest:
-      cpu: "200m"
-      memory: 256Mi
-    max:
+  - max:
       cpu: "{{.limitsmaxcpu}}"
       memory: {{.limitsmaxmem}}
     min:
-      cpu: "200m"
-      memory: 256Mi
+      cpu: "100m"
+      memory: "90Mi"
+    default:
+      cpu: "700m"
+      memory: "900Mi"
+    defaultRequest:
+      cpu: "110m"
+      memory: "111Mi"
     type: Container
