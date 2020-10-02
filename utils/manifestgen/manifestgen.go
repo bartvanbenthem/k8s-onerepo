@@ -19,14 +19,14 @@ type ManifestGenClient struct{}
 // pathOutputFolder wants a string containing path to the output folder
 func (c *ManifestGenClient) GenerateManifestFromValues(pathValuesFile, pathTemplateFile, pathOutputFolder string) {
 	// open the values yaml file
-	jsonFile, err := os.Open(pathValuesFile)
+	yamlFile, err := os.Open(pathValuesFile)
 	if err != nil {
 		log.Printf("Error: %v\n", err)
 	}
-	defer jsonFile.Close()
+	defer yamlFile.Close()
 
 	// read the values file and create a byte slice output
-	byteValue, err := ioutil.ReadAll(jsonFile)
+	byteValue, err := ioutil.ReadAll(yamlFile)
 	if err != nil {
 		log.Printf("Error: %v\n", err)
 	}
