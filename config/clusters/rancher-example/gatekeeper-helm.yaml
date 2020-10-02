@@ -5,7 +5,7 @@ metadata:
   namespace: "gatekeeper-system"
 spec:
   match:
-    - excludedNamespaces: {{.excludednamespaces}}
+    - excludedNamespaces: [kube-system gatekeeper-system co-ingress co-ingress-internal co-monitoring co-maintenance]
       processes: ["*"]
     - excludedNamespaces: ["audit-excluded-ns"]
       processes: ["audit"]

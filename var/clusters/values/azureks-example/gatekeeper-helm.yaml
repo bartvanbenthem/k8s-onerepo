@@ -1,0 +1,1 @@
+excludednamespaces: ["kube-system", "gatekeeper-system", "co-ingress", "co-ingress-internal","co-monitoring", "co-maintenance"]
