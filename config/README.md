@@ -13,4 +13,8 @@ $ helm install co-prometheus \
     -f ./config/clusters/$clusterName/prometheus-helm.yaml \
     ./config/helmcharts/kube-prometheus-stack
 
+$ helm install co-gatekeeper ./config/helmcharts/gatekeeper --namespace co-opa
+
+$ helm install co-kured ./config/helmcharts/kured --namespace co-maintenance
+
 ```

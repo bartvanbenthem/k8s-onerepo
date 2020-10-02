@@ -25,9 +25,17 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: nsco-opa
+  name: co-opa
   labels:
-    name: nsco-opa
+    name: co-opa
+    owner: cloud-ops
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: co-maintenance
+  labels:
+    name: co-maintenance
     owner: cloud-ops
 ---
 apiVersion: policy/v1beta1
