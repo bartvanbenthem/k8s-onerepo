@@ -6,7 +6,6 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 * Separate generic and specific configuration requirements
 * Separate configuration and deployments.
 
-
 ## project structure
 ```shell
 .
@@ -23,8 +22,18 @@ Manage multiple Kubernetes clusters and teams from a single repository.
     └── helmcharts
 ```
 
+### Cloud agnostic services
+* Nginx ingress
+* Prometheus Operator
+* Kured
+* OPA Gatekeeper (soon)
+
+### Cloud native services
+* External DNS (soon)
+* Cert-Manager (soon)
+
 ## prerequisites
 * Install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
 * Install Helm: https://helm.sh/docs/intro/install/
 
-
+## Run example
