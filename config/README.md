@@ -30,7 +30,12 @@ helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
 helm install co-kured ./config/helmcharts/kured --namespace co-maintenance
 ```
 
-## un-install Configuration
+## Update Configuration
+```shell
+
+```
+
+## Remove Configuration
 ```shell
 
 #clean up gatekeeper crd
