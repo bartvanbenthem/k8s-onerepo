@@ -24,7 +24,7 @@ helm install co-prometheus \
 
 # install open policy agent gate keeper
 helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
-./config/helmcharts/gatekeeper --namespace co-opa --generate-name
+./config/helmcharts/gatekeeper --generate-name
 
 # install kured
 helm install co-kured ./config/helmcharts/kured --namespace co-maintenance
