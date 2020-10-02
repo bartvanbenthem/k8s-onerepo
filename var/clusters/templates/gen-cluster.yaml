@@ -1,9 +1,10 @@
+---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: co-ingress-public
+  name: co-ingress
   labels:
-    name: co-ingress-public
+    name: co-ingress
     owner: {{.labels.owner}}
 ---
 apiVersion: v1

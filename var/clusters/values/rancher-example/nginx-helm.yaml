@@ -1,4 +1,4 @@
 nginx:
   replicacount: 2
-  ingressclass: "nginx-internal"
+  ingressclass: "nginx"
   prometheus: true
