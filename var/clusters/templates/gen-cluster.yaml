@@ -26,14 +26,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: co-opa
-  labels:
-    name: co-opa
-    owner: {{.labels.owner}}
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: co-maintenance
   labels:
     name: co-maintenance
