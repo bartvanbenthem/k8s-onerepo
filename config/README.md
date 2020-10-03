@@ -50,6 +50,11 @@ externalIPs:
 ## Remove Configuration
 ```shell
 
+helm uninstall co-nginx --namespace co-ingress
+helm uninstall co-nginx-internal --namespace co-ingress-internal
+helm uninstall co-prometheus --namespace co-monitoring
+helm uninstall co-kured --namespace co-maintenace
+
 #clean up gatekeeper crd
 kubectl delete crd \
   configs.config.gatekeeper.sh \
