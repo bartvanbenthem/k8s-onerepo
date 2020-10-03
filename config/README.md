@@ -34,14 +34,6 @@ helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
 
 ```
 
-#### Local-lab environments (microk8s, k3s, etc.)
-Edit the nginx ingress service manifests and add the nodes ip to the Loadbalancer external IP.
-```yaml
-type: LoadBalancer
-externalIPs:
-- <<node-ip-adress>>
-```
-
 ## Update Configuration
 ```shell
 
@@ -49,7 +41,7 @@ externalIPs:
 
 ## Remove Configuration
 ```shell
-
+# remove helm charts
 helm uninstall co-nginx --namespace co-ingress
 helm uninstall co-nginx-internal --namespace co-ingress-internal
 helm uninstall co-prometheus --namespace co-monitoring
