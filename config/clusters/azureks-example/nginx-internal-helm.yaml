@@ -3,3 +3,5 @@ controller:
   ingressClass: nginx-internal
   prometheus:
     create: true
+  service:
+    loadBalancerIP: 

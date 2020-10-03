@@ -2,3 +2,4 @@ nginx:
   replicacount: 2
   ingressclass: "nginx"
   prometheus: true
+  loadbalancerip: ""

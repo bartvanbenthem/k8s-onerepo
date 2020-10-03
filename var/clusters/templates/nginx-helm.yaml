@@ -3,3 +3,5 @@ controller:
   ingressClass: {{.nginx.ingressclass}}
   prometheus:
     create: {{.nginx.prometheus}}
+  service:
+    loadBalancerIP: {{.nginx.loadbalancerip}}
