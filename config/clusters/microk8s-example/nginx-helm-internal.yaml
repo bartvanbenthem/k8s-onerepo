@@ -4,4 +4,4 @@ controller:
   prometheus:
     create: true
   service:
-    externalIPs: 192.168.2.163
+    externalIPs: []
