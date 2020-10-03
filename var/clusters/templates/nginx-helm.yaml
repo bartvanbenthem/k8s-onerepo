@@ -4,4 +4,4 @@ controller:
   prometheus:
     create: {{.nginx.prometheus}}
   service:
-    loadBalancerIP: {{.nginx.loadbalancerip}}
+    externalIPs: {{.nginx.externalips}}

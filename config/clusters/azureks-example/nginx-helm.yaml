@@ -4,4 +4,4 @@ controller:
   prometheus:
     create: true
   service:
-    loadBalancerIP: 
+    externalIPs: []

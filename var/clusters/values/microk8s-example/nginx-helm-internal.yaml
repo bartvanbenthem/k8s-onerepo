@@ -2,4 +2,4 @@ nginx:
   replicacount: 2
   ingressclass: "nginx-internal"
   prometheus: true
-  loadbalancerip: "192.168.2.163"
+  externalips: "192.168.2.163"
