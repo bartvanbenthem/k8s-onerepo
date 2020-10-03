@@ -55,6 +55,9 @@ helm uninstall co-nginx-internal --namespace co-ingress-internal
 helm uninstall co-prometheus --namespace co-monitoring
 helm uninstall co-kured --namespace co-maintenace
 
+# delete all namspaces
+kubectl delete ns co-ingress co-ingress-internal co-maintenance co-monitoring co-opa
+
 #clean up gatekeeper crd
 kubectl delete crd \
   configs.config.gatekeeper.sh \
