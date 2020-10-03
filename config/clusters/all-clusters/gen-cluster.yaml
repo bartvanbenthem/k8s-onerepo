@@ -26,17 +26,17 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: co-opa
+  name: co-maintenance
   labels:
-    name: co-opa
+    name: co-maintenance
     owner: cloud-operations
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: co-maintenance
+  name: co-opa
   labels:
-    name: co-maintenance
+    name: co-opa
     owner: cloud-operations
 ---
 apiVersion: policy/v1beta1

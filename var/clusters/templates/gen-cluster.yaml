@@ -31,6 +31,14 @@ metadata:
     name: co-maintenance
     owner: {{.labels.owner}}
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: co-opa
+  labels:
+    name: co-opa
+    owner: {{.labels.owner}}
+---
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:

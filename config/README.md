@@ -30,7 +30,7 @@ helm install co-kured ./config/helmcharts/kured --namespace co-maintenance
 
 # install open policy agent gate keeper
 helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
-./config/helmcharts/gatekeeper --generate-name
+    ./config/helmcharts/gatekeeper --generate-name --namespace co-opa
 
 ```
 
