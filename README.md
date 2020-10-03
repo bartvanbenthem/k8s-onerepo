@@ -26,11 +26,11 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 * Nginx ingress
 * Prometheus Operator
 * Kured
-* OPA Gatekeeper (soon)
+* OPA Gatekeeper (in development)
 
 ### Cloud native services
-* External DNS (soon)
-* Cert-Manager (soon)
+* External DNS (in development)
+* Cert-Manager (in development)
 
 ## prerequisites
 * Install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
