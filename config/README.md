@@ -45,7 +45,7 @@ helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
 helm uninstall co-nginx --namespace co-ingress
 helm uninstall co-nginx-internal --namespace co-ingress-internal
 helm uninstall co-prometheus --namespace co-monitoring
-helm uninstall co-kured --namespace co-maintenace
+helm uninstall co-kured --namespace co-maintenance
 
 # delete all namspaces
 kubectl delete ns co-ingress co-ingress-internal co-maintenance co-monitoring co-opa
