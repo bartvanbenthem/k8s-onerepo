@@ -34,6 +34,46 @@ helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
 
 ```
 
+#### Test and expose prometheus stack
+``` shell
+# Expose monitoring interfaces
+cat <<EOF | kubectl apply -f -
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: co-monitoring
+  namespace: co-monitoring
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  spec:
+  rules:
+  - host: prometheus
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: co-prometheus-kube-prometh-prometheus
+            servicePort: 9090
+  - host: grafana
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: co-prometheus-grafana
+            servicePort: 80
+  - host: alertmanager
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: co-prometheus-kube-prometh-alertmanager 
+            servicePort: 9093
+EOF
+```
+
+
+
 ## Update Configuration
 ```shell
 
