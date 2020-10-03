@@ -32,7 +32,7 @@ helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
 ```
 
 #### For local lab environments (microk8s, k3s, etc.)
-Edit the nginx ingress service manifest and add the nodes ip to the Loadbalancer external IP.
+Edit the nginx ingress service manifests and add the nodes ip to the Loadbalancer external IP.
 ```yaml
 type: LoadBalancer
 externalIPs:
