@@ -47,3 +47,10 @@ kubectl delete crd \
   constrainttemplates.templates.gatekeeper.sh
 
 ```
+## For local lab environments (microk8s, k3s, etc.)
+Edit the nginx ingress service manifest and add the nodes ip to the Loadbalancer external IP.
+```yaml
+type: LoadBalancer
+externalIPs:
+- <<node-ip-adress>>
+```
