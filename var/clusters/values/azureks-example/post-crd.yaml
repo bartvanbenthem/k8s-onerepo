@@ -1,0 +1,7 @@
+nginx:
+  service:
+    name: metrics
+    port: 10254
+  servicemonitor:
+    port: metrics
+    interval: 15s

@@ -30,11 +30,14 @@ helm install co-kured ./config/helmcharts/kured --namespace co-maintenance
 
 # install open policy agent gate keeper
 helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
-    ./config/helmcharts/gatekeeper --generate-name --namespace co-opa
+    ./config/helmcharts/gatekeeper --generate-name --namespace co-policy
+
+# deploy these manifests after required CRD are created by HELM charts
+kubectl apply -f ./config/clusters/$clusterName/post-crd.yaml
 
 ```
 
-#### Test and expose prometheus stack
+#### Test and expose prometheus stack (do not use in production)
 ``` shell
 # Expose monitoring interfaces
 cat <<EOF | kubectl apply -f -
