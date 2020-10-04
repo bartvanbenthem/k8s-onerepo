@@ -5,6 +5,7 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 * Consistency in configuration across a multi-cloud landscape.
 * Separate generic and specific configuration requirements
 * Separate configuration and deployments.
+* Integrated kubernetes and cloud native services.
 
 ## project structure
 ```shell
@@ -22,13 +23,13 @@ Manage multiple Kubernetes clusters and teams from a single repository.
     └── helmcharts
 ```
 
-### Cloud agnostic services
+#### Cloud agnostic services
 * Nginx ingress
 * Prometheus Operator
 * Kured
 * OPA Gatekeeper (in development)
 
-### Cloud native services
+#### Cloud native services
 * External DNS (in development)
 * Cert-Manager (in development)
 
