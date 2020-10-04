@@ -25,14 +25,14 @@ spec:
   selector:
     app.kubernetes.io/name: ingress-nginx
   ports:
-  - name: metrics
-    port: 10254
+  - name: {{.nginx.service.name}}
+    port: {{.nginx.service.port}}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: nginx-ingress-controller-metrics
-  namespace: co-ingress
+  namespace: co-monitoring
   labels:
     app: ingress-nginx
     release: co-prometheus
@@ -46,23 +46,4 @@ spec:
   namespaceSelector:
     matchNames:
     - co-ingress
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: nginx-ingress-controller-metrics
-  namespace: co-ingress-internal
-  labels:
-    app: ingress-nginx
-    release: co-prometheus
-spec:
-  endpoints:
-  - port: {{.nginx.servicemonitor.port}}
-    interval: {{.nginx.servicemonitor.interval}}
-  selector:
-    matchLabels:
-      app: ingress-nginx
-  namespaceSelector:
-    matchNames:
     - co-ingress-internal
----

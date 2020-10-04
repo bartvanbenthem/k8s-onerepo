@@ -36,6 +36,8 @@ helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
 kubectl apply -f ./config/clusters/$clusterName/post-crd.yaml
 
 ```
+#### import the following dashboards in grafana
+* 9614 
 
 #### Test and expose prometheus stack (do not use in production)
 ``` shell
