@@ -5,7 +5,9 @@ clusterName=$(kubectl config current-context)
 
 # install raw manifests
 kubectl apply -f ./config/clusters/all-clusters
-kubectl apply -f ./config/clusters/$clusterName
+kubectl apply -f ./config/clusters/$clusterName/spec-cluster.yaml
+kubectl apply -f ./config/clusters/$clusterName/team-alpha.yaml
+kubectl apply -f ./config/clusters/$clusterName/team-beta.yaml
 
 # install the default nginx ingress controller
 helm install co-nginx \
