@@ -26,7 +26,8 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 #### Cloud agnostic services
 * Nginx ingress
 * Prometheus Operator
-* Kured
+* Grafana, Loki and Promtail
+* Kubernetes reboot daemon
 * OPA Gatekeeper (in development)
 * Istio Service Mesh (in development)
 
