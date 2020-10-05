@@ -11,34 +11,37 @@ kubectl apply -f ./config/clusters/$clusterName/team-beta.yaml
 
 # install the default nginx ingress controller
 helm install co-nginx \
-    -f ./config/clusters/$clusterName/nginx-helm.yaml \
-    ./config/helmcharts/ingress-nginx --namespace co-ingress
+  -f ./config/clusters/$clusterName/nginx-helm.yaml \
+  ./config/helmcharts/ingress-nginx --namespace co-ingress
 
 # install nginx ingress controller for internal traffic
 helm install co-nginx-internal \
-    -f ./config/clusters/$clusterName/nginx-internal-helm.yaml \
-    ./config/helmcharts/ingress-nginx --namespace co-ingress-internal
+  -f ./config/clusters/$clusterName/nginx-internal-helm.yaml \
+  ./config/helmcharts/ingress-nginx --namespace co-ingress-internal
 
 # install prometheus operator
 helm install co-prometheus \
-    -f ./config/clusters/$clusterName/prometheus-helm.yaml \
-    ./config/helmcharts/kube-prometheus-stack --namespace co-monitoring
+  -f ./config/clusters/$clusterName/prometheus-helm.yaml \
+  ./config/helmcharts/kube-prometheus-stack --namespace co-monitoring
 # get grafana admin password
 kubectl get secret --namespace co-monitoring co-prometheus-grafana \
-    -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+  -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
     
 # install loki
 helm install co-loki ./config/helmcharts/loki --namespace co-monitoring
 
 # install promtail
-helm install co-promtail ./config/helmcharts/promtail --namespace co-monitoring --set "loki.serviceName=co-loki"
+helm install co-promtail \
+  -f ./config/clusters/$clusterName/promtail-helm.yaml \
+  ./config/helmcharts/promtail --namespace co-monitoring
+#--set "loki.serviceName=co-loki"
 
 # install kured
 helm install co-kured ./config/helmcharts/kured --namespace co-maintenance
 
 # install open policy agent gate keeper
 helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
-    ./config/helmcharts/gatekeeper --generate-name --namespace co-policy
+  ./config/helmcharts/gatekeeper --generate-name --namespace co-policy
 
 # deploy these manifests after required CRD are created by HELM charts
 kubectl apply -f ./config/clusters/$clusterName/monitoring-postcrd.yaml
