@@ -29,7 +29,7 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 * Grafana, Loki and Promtail
 * Kubernetes reboot daemon
 * OPA Gatekeeper (in development)
-* Istio Service Mesh (in development)
+* Open Service Mesh (in development)
 
 #### Cloud native services
 * External DNS (in development)
