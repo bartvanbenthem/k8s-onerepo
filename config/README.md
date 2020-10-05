@@ -26,6 +26,12 @@ helm install co-prometheus \
 # get grafana admin password
 kubectl get secret --namespace co-monitoring co-prometheus-grafana \
     -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+    
+# install loki
+helm install co-loki ./config/helmcharts/loki --namespace co-monitoring
+
+# install promtail
+helm install co-promtail ./config/helmcharts/promtail --namespace co-monitoring --set "loki.serviceName=co-loki"
 
 # install kured
 helm install co-kured ./config/helmcharts/kured --namespace co-maintenance
@@ -76,8 +82,9 @@ spec:
             servicePort: 9093
 EOF
 ```
-#### import the following dashboards in grafana
-* 9614 
+#### Grafana config
+* Import nginx ingress dashboard: 9614 
+* Add the Loki datasource
 
 ## Update Configuration
 ```shell
