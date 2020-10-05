@@ -1,7 +1,14 @@
 nginx:
   service:
     name: metrics
+    namespace: co-ingress
     port: 10254
-  servicemonitor:
-    port: metrics
-    interval: 15s
+nginxinternal:
+  service:
+    name: metrics
+    namespace: co-ingress-internal
+    port: 10254
+nginxservicemonitor:
+  namespace: co-monitoring
+  port: metrics
+  interval: 15s

@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: co-prometheus-kube-prometh-nginx-ingress
-  namespace: co-ingress
+  namespace: {{.nginx.service.namespace}}
   labels:
     app: ingress-nginx
     release: co-prometheus
@@ -17,7 +17,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: co-prometheus-kube-prometh-nginx-ingress
-  namespace: co-ingress-internal
+  namespace: {{.nginxinternal.service.namespace}}
   labels:
     app: ingress-nginx
     release: co-prometheus
@@ -25,25 +25,25 @@ spec:
   selector:
     app.kubernetes.io/name: ingress-nginx
   ports:
-  - name: {{.nginx.service.name}}
-    port: {{.nginx.service.port}}
+  - name: {{.nginxinternal.service.name}}
+    port: {{.nginxinternal.service.port}}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: nginx-ingress-controller-metrics
-  namespace: co-monitoring
+  namespace: {{.nginxservicemonitor.namespace}}
   labels:
     app: ingress-nginx
     release: co-prometheus
 spec:
   endpoints:
-  - port: {{.nginx.servicemonitor.port}}
-    interval: {{.nginx.servicemonitor.interval}}
+  - port: {{.nginxservicemonitor.port}}
+    interval: {{.nginxservicemonitor.interval}}
   selector:
     matchLabels:
       app: ingress-nginx
   namespaceSelector:
     matchNames:
-    - co-ingress
-    - co-ingress-internal
+    - {{.nginx.service.namespace}}
+    - {{.nginxinternal.service.namespace}}

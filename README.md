@@ -28,6 +28,7 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 * Prometheus Operator
 * Kured
 * OPA Gatekeeper (in development)
+* Istio Service Mesh (in development)
 
 #### Cloud native services
 * External DNS (in development)
