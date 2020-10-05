@@ -35,7 +35,7 @@ helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
     ./config/helmcharts/gatekeeper --generate-name --namespace co-policy
 
 # deploy these manifests after required CRD are created by HELM charts
-kubectl apply -f ./config/clusters/$clusterName/post-crd.yaml
+kubectl apply -f ./config/clusters/$clusterName/monitoring-postcrd.yaml
 
 ```
 
