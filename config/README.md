@@ -45,9 +45,9 @@ kubectl apply -f ./config/clusters/$clusterName/monitoring-postcrd.yaml
 
 ```
 
-#### Test and expose prometheus stack (do not use in production)
+#### Test and expose (do not use in production)
 ``` shell
-# Expose monitoring interfaces
+# Expose Prometheus Operator monitoring interfaces
 cat <<EOF | kubectl apply -f -
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
@@ -81,15 +81,20 @@ spec:
             serviceName: co-prometheus-kube-prometh-alertmanager 
             servicePort: 9093
 EOF
+
+# test promtail metrics working
+kubectl --namespace co-monitoring port-forward daemonset/co-promtail 3101 
+curl http://127.0.0.1:3101/metrics
+
+# verify loki working
+kubectl --namespace co-monitoring port-forward service/co-loki 3100
+curl http://127.0.0.1:3100/api/prom/label
+
 ```
 #### Grafana config
 * Import nginx ingress dashboard: 9614 
 * Add the Loki datasource
 
-## Update Configuration
-```shell
-
-```
 
 ## Remove Configuration
 ```shell
@@ -98,6 +103,8 @@ helm uninstall co-nginx --namespace co-ingress
 helm uninstall co-nginx-internal --namespace co-ingress-internal
 helm uninstall co-prometheus --namespace co-monitoring
 helm uninstall co-kured --namespace co-maintenance
+helm uninstall co-promtail --namespace co-monitoring
+helm uninstall co-loki --namespace co-monitoring
 
 # delete all namspaces
 kubectl delete ns co-ingress co-ingress-internal co-maintenance co-monitoring co-policy
