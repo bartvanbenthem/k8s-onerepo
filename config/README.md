@@ -93,7 +93,7 @@ helm uninstall co-prometheus --namespace co-monitoring
 helm uninstall co-kured --namespace co-maintenance
 
 # delete all namspaces
-kubectl delete ns co-ingress co-ingress-internal co-maintenance co-monitoring co-opa
+kubectl delete ns co-ingress co-ingress-internal co-maintenance co-monitoring co-policy
 
 #clean up gatekeeper crd
 kubectl delete crd \
