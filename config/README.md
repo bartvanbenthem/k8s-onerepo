@@ -38,8 +38,6 @@ helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
 kubectl apply -f ./config/clusters/$clusterName/post-crd.yaml
 
 ```
-#### import the following dashboards in grafana
-* 9614 
 
 #### Test and expose prometheus stack (do not use in production)
 ``` shell
@@ -78,8 +76,8 @@ spec:
             servicePort: 9093
 EOF
 ```
-
-
+#### import the following dashboards in grafana
+* 9614 
 
 ## Update Configuration
 ```shell
@@ -95,7 +93,7 @@ helm uninstall co-prometheus --namespace co-monitoring
 helm uninstall co-kured --namespace co-maintenance
 
 # delete all namspaces
-kubectl delete ns co-ingress co-ingress-internal co-maintenance co-monitoring co-opa
+kubectl delete ns co-ingress co-ingress-internal co-maintenance co-monitoring co-policy
 
 #clean up gatekeeper crd
 kubectl delete crd \
