@@ -23,17 +23,13 @@ Manage multiple Kubernetes clusters and teams from a single repository.
     └── helmcharts
 ```
 
-#### Cloud agnostic services
+#### Included Kubernetes native services
 * Nginx ingress
 * Prometheus Operator
 * Grafana, Loki and Promtail
 * Kubernetes reboot daemon
 * OPA Gatekeeper (in development)
 * Open Service Mesh (in development)
-
-#### Cloud native services
-* External DNS (in development)
-* Cert-Manager (in development)
 
 ## prerequisites
 * Install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
