@@ -1,6 +1,4 @@
 # Description
-*"one repo to rule them all"*
-
 Manage multiple Kubernetes clusters and teams from a single repository.
 * Consistency in configuration across a multi-cloud landscape.
 * Separate generic and specific configuration requirements
