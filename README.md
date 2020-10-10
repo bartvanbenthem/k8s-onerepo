@@ -1,7 +1,7 @@
 # Description
 Manage multiple Kubernetes clusters and teams from a single repository.
 * Consistency in configuration across a multi-cloud landscape.
-* Separate generic and specific configuration requirements
+* Separate generic and specific configuration requirements.
 * Separate configuration and deployments.
 * Integrated kubernetes and cloud native services.
 * Monitoring and observability of the complete stack.
