@@ -35,3 +35,6 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 * Install Helm: https://helm.sh/docs/intro/install/
 
 ## Run example
+```shell
+./k8s-onerepo
+```
