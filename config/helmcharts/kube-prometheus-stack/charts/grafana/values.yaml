@@ -50,7 +50,8 @@ livenessProbe:
 
 image:
   repository: grafana/grafana
-  tag: 6.7.3
+  tag: 7.2.0
+  sha: ""
   pullPolicy: IfNotPresent
 
   ## Optionally specify an array of imagePullSecrets.
@@ -69,6 +70,7 @@ testFramework:
 
 securityContext:
   runAsUser: 472
+  runAsGroup: 472
   fsGroup: 472
 
 
@@ -90,7 +92,8 @@ extraEmptyDirMounts: []
 
 downloadDashboardsImage:
   repository: curlimages/curl
-  tag: 7.68.0
+  tag: 7.70.0
+  sha: ""
   pullPolicy: IfNotPresent
 
 downloadDashboards:
@@ -121,11 +124,29 @@ service:
   labels: {}
   portName: service
 
+serviceMonitor:
+  ## If true, a ServiceMonitor CRD is created for a prometheus operator
+  ## https://github.com/coreos/prometheus-operator
+  ##
+  enabled: false
+  path: /metrics
+  #  namespace: monitoring  (defaults to use the namespace this chart is deployed to)
+  labels: {}
+  interval: 1m
+  scrapeTimeout: 30s
+  relabelings: []
+
 extraExposePorts: []
  # - name: keycloak
  #   port: 8080
  #   targetPort: 8080
  #   type: ClusterIP
+
+# overrides pod.spec.hostAliases in the grafana deployment's pods
+hostAliases: []
+  # - ip: "1.2.3.4"
+  #   hostnames:
+  #     - "my.host.com"
 
 ingress:
   enabled: false
@@ -190,6 +211,14 @@ extraContainers: |
 #     - name: proxy-web
 #       containerPort: 4181
 
+## Volumes that can be used in init containers that will not be mounted to deployment pods
+extraContainerVolumes: []
+#  - name: volume-from-secret
+#    secret:
+#      secretName: secret-to-mount
+#  - name: empty-dir-volume
+#    emptyDir: {}
+
 ## Enable persistence using Persistent Volume Claims
 ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
 ##
@@ -217,6 +246,7 @@ initChownData:
   image:
     repository: busybox
     tag: "1.31.1"
+    sha: ""
     pullPolicy: IfNotPresent
 
   ## initChownData resource requests and limits
@@ -369,7 +399,7 @@ dashboards: {}
   #     url: https://example.com/repository/test-b64.json
   #     b64content: true
 
-## Reference to external ConfigMap per provider. Use provider name as key and ConfiMap name as value.
+## Reference to external ConfigMap per provider. Use provider name as key and ConfigMap name as value.
 ## A provider dashboards must be defined either by external ConfigMaps or in values.yaml, not in both.
 ## ConfigMap data example:
 ##
@@ -407,7 +437,7 @@ grafana.ini:
  #    scopes: user:email,read:org
  #    auth_url: https://github.com/login/oauth/authorize
  #    token_url: https://github.com/login/oauth/access_token
- #    api_url: https://github.com/user
+ #    api_url: https://api.github.com/user
  #    team_ids:
  #    allowed_organizations:
  #    client_id:
@@ -455,7 +485,10 @@ smtp:
 ## Sidecars that collect the configmaps with specified label and stores the included files them into the respective folders
 ## Requires at least Grafana 5 to work and can't be used together with parameters dashboardProviders, datasources and dashboards
 sidecar:
-  image: kiwigrid/k8s-sidecar:0.1.99
+  image:
+    repository: kiwigrid/k8s-sidecar
+    tag: 0.1.209
+    sha: ""
   imagePullPolicy: IfNotPresent
   resources: {}
 #   limits:
@@ -466,6 +499,7 @@ sidecar:
 #     memory: 50Mi
   # skipTlsVerify Set to true to skip tls verification for kube api calls
   # skipTlsVerify: true
+  enableUniqueFilenames: false
   dashboards:
     enabled: false
     SCProvider: true
@@ -493,6 +527,8 @@ sidecar:
       disableDelete: false
       # allow updating provisioned dashboards from the UI
       allowUiUpdates: false
+      # allow Grafana to replicate dashboard structure from filesystem
+      foldersFromFilesStructure: false
   datasources:
     enabled: false
     # label that the configmaps with datasources are marked with
@@ -501,7 +537,61 @@ sidecar:
     # Otherwise the namespace in which the sidecar is running will be used.
     # It's also possible to specify ALL to search in all namespaces
     searchNamespace: null
+  notifiers:
+    enabled: false
+    # label that the configmaps with notifiers are marked with
+    label: grafana_notifier
+    # If specified, the sidecar will search for notifier config-maps inside this namespace.
+    # Otherwise the namespace in which the sidecar is running will be used.
+    # It's also possible to specify ALL to search in all namespaces
+    searchNamespace: null
 
 ## Override the deployment namespace
 ##
 namespaceOverride: ""
+
+## Number of old ReplicaSets to retain
+##
+revisionHistoryLimit: 10
+
+## Add a seperate remote image renderer deployment/service
+imageRenderer:
+  # Enable the image-renderer deployment & service
+  enabled: false
+  replicas: 1
+  image:
+    # image-renderer Image repository
+    repository: grafana/grafana-image-renderer
+    # image-renderer Image tag
+    tag: latest
+    # image-renderer Image sha (optional)
+    sha: ""
+    # image-renderer ImagePullPolicy
+    pullPolicy: Always
+  # image-renderer deployment securityContext
+  securityContext: {}
+  # image-renderer deployment Host Aliases
+  hostAliases: []
+  # image-renderer deployment priority class
+  priorityClassName: ''
+  service:
+    # image-renderer service port name
+    portName: 'http'
+    # image-renderer service port used by both service and deployment
+    port: 8081
+  # name of the image-renderer port on the pod
+  podPortName: http
+  # number of image-renderer replica sets to keep
+  revisionHistoryLimit: 10
+  networkPolicy:
+    # Enable a NetworkPolicy to limit inbound traffic to only the created grafana pods
+    limitIngress: true
+    # Enable a NetworkPolicy to limit outbound traffic to only the created grafana pods
+    limitEgress: false
+  resources: {}
+#   limits:
+#     cpu: 100m
+#     memory: 100Mi
+#   requests:
+#     cpu: 50m
+#     memory: 50Mi
