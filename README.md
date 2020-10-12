@@ -36,8 +36,7 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 
 ## Run example
 ```shell
-git clone https://github.com/bartvanbenthem/k8s-onerepo.git
-cd ./k8s-onerepo
-
-./k8s-onerepo
+$ git clone https://github.com/bartvanbenthem/k8s-onerepo.git
+$ cd ./k8s-onerepo
+$ ./k8s-onerepo
 ```
