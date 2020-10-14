@@ -5,7 +5,7 @@ metadata:
   name: co-ingress
   labels:
     name: co-ingress
-    owner: {{.labels.owner}}
+    tenant: {{.labels.tenant}}
 ---
 apiVersion: v1
 kind: Namespace
@@ -13,7 +13,7 @@ metadata:
   name: co-ingress-internal
   labels:
     name: co-ingress-internal
-    owner: {{.labels.owner}}
+    tenant: {{.labels.tenant}}
 ---
 apiVersion: v1
 kind: Namespace
@@ -21,7 +21,7 @@ metadata:
   name: co-monitoring
   labels:
     name: co-monitoring
-    owner: {{.labels.owner}}
+    tenant: {{.labels.tenant}}
 ---
 apiVersion: v1
 kind: Namespace
@@ -29,7 +29,7 @@ metadata:
   name: co-maintenance
   labels:
     name: co-maintenance
-    owner: {{.labels.owner}}
+    tenant: {{.labels.tenant}}
 ---
 apiVersion: v1
 kind: Namespace
@@ -37,7 +37,24 @@ metadata:
   name: co-policy
   labels:
     name: co-policy
-    owner: {{.labels.owner}}
+    tenant: {{.labels.tenant}}
+---
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: default
+spec:
+  privileged: false
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  runAsUser:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  volumes:
+  - '*'
 ---
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
@@ -56,19 +73,3 @@ spec:
   volumes:
   - '*'
 ---
-apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
-metadata:
-  name: unprivileged
-spec:
-  privileged: false
-  seLinux:
-    rule: RunAsAny
-  supplementalGroups:
-    rule: RunAsAny
-  runAsUser:
-    rule: RunAsAny
-  fsGroup:
-    rule: RunAsAny
-  volumes:
-  - '*'

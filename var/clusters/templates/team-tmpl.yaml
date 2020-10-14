@@ -4,9 +4,8 @@ metadata:
   name: {{.namespace}}
   labels:
     company: {{.labels.company}}
-    department: {{.labels.department}}
+    tenant: {{.labels.tenant}}
     application: {{.labels.application}}
-    owner: {{.labels.owner}}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
@@ -84,3 +83,20 @@ items:
       services: {{.resourcequota.services}}
       services.loadbalancers: {{.resourcequota.servicesloadbalancers}}
       services.nodeports: {{.resourcequota.servicesnodeports}}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: co-ns-isolation
+spec:
+  podSelector:
+    matchLabels: 
+      tenant: {{.labels.tenant}}
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          tenant: {{.labels.tenant}}
+    ports:
+    - ports: 80
+---

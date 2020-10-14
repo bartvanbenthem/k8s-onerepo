@@ -4,9 +4,8 @@ groupid: 7345435-345345-45-99999999
 
 labels:
   company: mycompany
-  department: mydepartment
+  tenant: tenant-a
   application: app
-  owner: team-alpha
 
 resourcequota:
   pods: "50"

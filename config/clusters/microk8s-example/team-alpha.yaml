@@ -4,9 +4,8 @@ metadata:
   name: team-alpha-dev
   labels:
     company: mycompany
-    department: mydepartment
+    tenant: tenant-a
     application: app
-    owner: team-alpha
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
@@ -84,3 +83,20 @@ items:
       services: 20
       services.loadbalancers: 0
       services.nodeports: 0
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: co-ns-isolation
+spec:
+  podSelector:
+    matchLabels: 
+      tenant: tenant-a
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          tenant: tenant-a
+    ports:
+    - ports: 80
+---
