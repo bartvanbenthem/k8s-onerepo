@@ -1,8 +1,6 @@
-cloudprovider: rancher
+cloudprovider: local
 admingroup: 7345435-345345-45-6546456-34535
-
 labels:
   owner: cloud-ops
-
 limitsmaxcpu: 3000m
 limitsmaxmem: 3Gi

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: co-specific-rancher
+  name: co-specific-local
   labels:
     owner: cloud-ops
 ---
