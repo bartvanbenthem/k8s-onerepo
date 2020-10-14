@@ -135,6 +135,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: psp-restricted-binding
+  namespace: team-beta-test
 roleRef:
   kind: ClusterRole
   name: psp-restricted
