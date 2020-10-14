@@ -1,7 +1,7 @@
 ## Deploy Configuration
 ```shell
 # set cluster name
-clusterName=$(kubectl config current-context)
+clusterName="microk8s-example"
 
 # install raw manifests
 kubectl apply -f ./config/clusters/all-clusters
