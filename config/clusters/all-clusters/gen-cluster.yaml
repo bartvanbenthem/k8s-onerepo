@@ -162,5 +162,27 @@ subjects:
 - kind: Group
   apiGroup: rbac.authorization.k8s.io
   name: '7345435-345345-45-6546456-34535'
-
-  
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-admins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+subjects:
+- kind: Group
+  name: '7345435-345345-45-6546456-34535'
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-views
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+subjects:
+- kind: Group
+  name: '7345435-345345-45-6666666-99999'
