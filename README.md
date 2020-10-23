@@ -28,7 +28,6 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 * Grafana, Loki and Promtail
 * Kubernetes reboot daemon
 * OPA Gatekeeper (in development)
-* Open Service Mesh (in development)
 
 ## prerequisites
 * Install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
