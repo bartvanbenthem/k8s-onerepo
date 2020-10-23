@@ -4,7 +4,7 @@ Manage multiple Kubernetes clusters and teams from a single repository.
 * Separate generic and specific configuration requirements.
 * Separate configuration and deployments.
 * Integrated kubernetes and cloud native services.
-* Monitoring and observability of the complete stack.
+* Monitoring and logging of the complete stack.
 
 ## project structure
 ```shell
