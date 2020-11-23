@@ -11,8 +11,8 @@ import (
 )
 
 // Declare all project path variables
-const clValues string = "var/cluster/values"
-const clTemplates string = "var/cluster/templates"
+const clValues string = "var/clusters/values/cluster01"
+const clTemplates string = "var/clusters/templates"
 const clConfig string = "config/cluster"
 const clHelmTemplates string = "var/helmcharts"
 const clHelmConfig string = "config/helmcharts"

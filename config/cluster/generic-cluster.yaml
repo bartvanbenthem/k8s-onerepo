@@ -5,7 +5,7 @@ metadata:
   name: co-ingress
   labels:
     name: co-ingress
-    tenant: 
+    tenant: cloud-operations
 ---
 apiVersion: v1
 kind: Namespace
@@ -13,7 +13,7 @@ metadata:
   name: co-ingress-internal
   labels:
     name: co-ingress-internal
-    tenant: 
+    tenant: cloud-operations
 ---
 apiVersion: v1
 kind: Namespace
@@ -21,7 +21,7 @@ metadata:
   name: co-monitoring
   labels:
     name: co-monitoring
-    tenant: 
+    tenant: cloud-operations
 ---
 apiVersion: v1
 kind: LimitRange
