@@ -1,10 +1,8 @@
 # Description
-Manage multiple Kubernetes clusters and teams from a single repository.
+Generate manifests for multiple Kubernetes clusters and teams from a single repository.
 * Consistency in configuration across a multi-cloud landscape.
 * Separate generic and specific configuration requirements.
-* Separate configuration and deployments.
-* Integrated kubernetes and cloud native services.
-* Monitoring and logging of the complete stack.
+* Separate configuration from deployment.
 
 ## project structure
 ```shell
