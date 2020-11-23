@@ -20,7 +20,7 @@ Generate manifests for multiple Kubernetes clusters and teams from a single repo
     └── helmcharts
 ```
 
-#### Included Kubernetes native services
+#### Examples for Kubernetes native services
 * Nginx ingress
 * Prometheus Operator
 * Grafana, Loki and Promtail
