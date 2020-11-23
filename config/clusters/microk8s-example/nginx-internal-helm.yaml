@@ -1,7 +1,0 @@
-controller:
-  replicaCount: 2
-  ingressClass: nginx-internal
-  prometheus:
-    create: true
-  service:
-    externalIPs: []

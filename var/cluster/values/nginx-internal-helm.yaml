@@ -1,0 +1,5 @@
+nginx:
+  replicacount: 2
+  ingressclass: "nginx-internal"
+  prometheus: true
+  externalips: []

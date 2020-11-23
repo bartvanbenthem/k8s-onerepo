@@ -1,27 +1,23 @@
 ## Deploy Configuration
 ```shell
-# set cluster name
-clusterName="microk8s-example"
-
 # install raw manifests
-kubectl apply -f ./config/clusters/all-clusters
-kubectl apply -f ./config/clusters/$clusterName/spec-cluster.yaml
-kubectl apply -f ./config/clusters/$clusterName/team-alpha.yaml
-kubectl apply -f ./config/clusters/$clusterName/team-beta.yaml
+kubectl apply -f ./config/clusters/generic-cluster.yaml
+kubectl apply -f ./config/clusters/team-alpha.yaml
+kubectl apply -f ./config/clusters/team-beta.yaml
 
 # install the default nginx ingress controller
 helm install co-nginx \
-  -f ./config/clusters/$clusterName/nginx-helm.yaml \
+  -f ./config/clusters/nginx-helm.yaml \
   ./config/helmcharts/ingress-nginx --namespace co-ingress
 
 # install nginx ingress controller for internal traffic
 helm install co-nginx-internal \
-  -f ./config/clusters/$clusterName/nginx-internal-helm.yaml \
+  -f ./config/clusters/nginx-internal-helm.yaml \
   ./config/helmcharts/ingress-nginx --namespace co-ingress-internal
 
 # install prometheus operator
 helm install co-prometheus \
-  -f ./config/clusters/$clusterName/prometheus-helm.yaml \
+  -f ./config/clusters/prometheus-helm.yaml \
   ./config/helmcharts/kube-prometheus-stack --namespace co-monitoring
 # get grafana admin password
 kubectl get secret --namespace co-monitoring co-prometheus-grafana \
@@ -32,12 +28,12 @@ helm install co-loki ./config/helmcharts/loki --namespace co-monitoring
 
 # install promtail
 helm install co-promtail \
-  -f ./config/clusters/$clusterName/promtail-helm.yaml \
+  -f ./config/clusters/promtail-helm.yaml \
   ./config/helmcharts/promtail --namespace co-monitoring
 #--set "loki.serviceName=co-loki"
 
 # deploy these manifests after required CRD are created by HELM charts
-kubectl apply -f ./config/clusters/$clusterName/monitoring-postcrd.yaml
+kubectl apply -f ./config/clusters/monitoring-postcrd.yaml
 
 ```
 
