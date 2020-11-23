@@ -36,13 +36,6 @@ helm install co-promtail \
   ./config/helmcharts/promtail --namespace co-monitoring
 #--set "loki.serviceName=co-loki"
 
-# install kured
-helm install co-kured ./config/helmcharts/kured --namespace co-maintenance
-
-# install open policy agent gate keeper
-helm install -f ./config/clusters/$clusterName/gatekeeper-helm.yaml \
-  ./config/helmcharts/gatekeeper --generate-name --namespace co-policy
-
 # deploy these manifests after required CRD are created by HELM charts
 kubectl apply -f ./config/clusters/$clusterName/monitoring-postcrd.yaml
 
@@ -105,18 +98,10 @@ curl http://127.0.0.1:3100/api/prom/label
 helm uninstall co-nginx --namespace co-ingress
 helm uninstall co-nginx-internal --namespace co-ingress-internal
 helm uninstall co-prometheus --namespace co-monitoring
-helm uninstall co-kured --namespace co-maintenance
 helm uninstall co-promtail --namespace co-monitoring
 helm uninstall co-loki --namespace co-monitoring
 
-# delete all namspaces
-kubectl delete ns co-ingress co-ingress-internal co-maintenance co-monitoring co-policy
-
-#clean up gatekeeper crd
-kubectl delete crd \
-  configs.config.gatekeeper.sh \
-  constraintpodstatuses.status.gatekeeper.sh \
-  constrainttemplatepodstatuses.status.gatekeeper.sh \
-  constrainttemplates.templates.gatekeeper.sh
+# delete all namespaces
+kubectl delete ns co-ingress co-ingress-internal co-maintenance co-monitoring
 
 ```
