@@ -8,13 +8,13 @@ Generate manifests for multiple Kubernetes clusters and teams from a single repo
 ```shell
 .
 ├── config
-│   ├── clusters
+│   ├── cluster
 │   └── helmcharts
 ├── utils
 │   └── filesystem
 │   └── manifestgen
 └── var
-    ├── clusters
+    ├── cluster
     │   ├── templates
     │   └── values
     └── helmcharts
