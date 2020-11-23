@@ -24,8 +24,6 @@ Generate manifests for multiple Kubernetes clusters and teams from a single repo
 * Nginx ingress
 * Prometheus Operator
 * Grafana, Loki and Promtail
-* Kubernetes reboot daemon
-* OPA Gatekeeper (in development)
 
 ## prerequisites
 * Install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
