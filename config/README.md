@@ -83,21 +83,8 @@ kubectl --namespace co-monitoring port-forward service/co-loki 3100
 curl http://127.0.0.1:3100/api/prom/label
 
 ```
-#### Grafana config
+### Grafana config
 * Import nginx ingress dashboard: 9614 
 * Add the Loki datasource
 
 
-## Remove Configuration
-```shell
-# remove helm charts
-helm uninstall co-nginx --namespace co-ingress
-helm uninstall co-nginx-internal --namespace co-ingress-internal
-helm uninstall co-prometheus --namespace co-monitoring
-helm uninstall co-promtail --namespace co-monitoring
-helm uninstall co-loki --namespace co-monitoring
-
-# delete all namespaces
-kubectl delete ns co-ingress co-ingress-internal co-maintenance co-monitoring
-
-```
