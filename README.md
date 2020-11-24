@@ -23,12 +23,12 @@ Generate manifests for multiple Kubernetes clusters and teams from a single repo
 * Install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
 * Install Helm: https://helm.sh/docs/intro/install/
 
-## Run example
+## Download k8s-onerepo
 ```shell
 $ git clone https://github.com/bartvanbenthem/k8s-onerepo.git
 ```
 
-#### set environment variables and run example
+### set environment variables and run example manifest generation
 ```shell
 export K8S_ONEREPO_VALUES='var/values/cluster01'
 export K8S_ONEREPO_TEMPLATES='var/templates'
@@ -40,7 +40,8 @@ $ cd ./k8s-onerepo
 $ ./bin/k8s-onerepo
 ```
 
-#### example services
+## Deploy the example configuration to Kubernetes
+https://github.com/bartvanbenthem/k8s-onerepo/blob/master/config/README.md
 The Example stack contains the following K8s native service configurations:
 * Nginx ingress
 * Prometheus Operator
