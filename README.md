@@ -40,7 +40,7 @@ $ cd ./k8s-onerepo
 $ ./bin/k8s-onerepo
 ```
 
-## Deploy the example configuration to Kubernetes
+### Deploy the generated example configuration to Kubernetes
 https://github.com/bartvanbenthem/k8s-onerepo/blob/master/config/README.md
 
 The Example stack contains the following K8s native service configurations:
