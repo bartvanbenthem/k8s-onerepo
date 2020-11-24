@@ -83,7 +83,8 @@ kubectl --namespace co-monitoring port-forward service/co-loki 3100
 curl http://127.0.0.1:3100/api/prom/label
 
 ```
-### Grafana config
+
+### Manual Grafana configurations
 * Import nginx ingress dashboard: 9614 
 * Add the Loki datasource
 
