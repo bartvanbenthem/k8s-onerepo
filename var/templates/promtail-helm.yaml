@@ -1,0 +1,2 @@
+loki:
+  serviceName: {{.promail.loki.servicename}}

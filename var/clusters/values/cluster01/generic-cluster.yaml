@@ -1,9 +1,0 @@
-admin:
-  groupid: 7345435-345345-45-6546456-34535
-reader:
-  groupid: 7345435-345345-45-6666666-99999
-labels:
-  tenant: cloud-operations
-
-limitsmaxcpu: 3000m
-limitsmaxmem: 3Gi

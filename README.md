@@ -14,10 +14,9 @@ Generate manifests for multiple Kubernetes clusters and teams from a single repo
 │   └── filesystem
 │   └── manifestgen
 └── var
-    ├── clusters
-    │   ├── templates
-    │   └── values
     └── helmcharts
+    └── templates
+    └── values
 ```
 
 #### Example helm charts

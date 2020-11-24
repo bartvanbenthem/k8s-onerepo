@@ -10,14 +10,14 @@ import (
 	"github.com/bartvanbenthem/k8s-onerepo/utils/manifestgen"
 )
 
-// Declare all project path variables
-const clValues string = "var/clusters/values/cluster01"
-const clTemplates string = "var/clusters/templates"
-const clConfig string = "config/cluster"
-const clHelmTemplates string = "var/helmcharts"
-const clHelmConfig string = "config/helmcharts"
-
 func main() {
+	// get all project path variables
+	clValues := os.Getenv("K8S_ONEREPO_VALUES")
+	clTemplates := os.Getenv("K8S_ONEREPO_TEMPLATES")
+	clConfig := os.Getenv("K8S_ONEREPO_CONFIG")
+	clHelmTemplates := os.Getenv("K8S_ONEREPO_HELM_TEMPLATES")
+	clHelmConfig := os.Getenv("K8S_ONEREPO_HELM_CONFIG")
+
 	// create base dirs in config
 	fmt.Printf("Check config base dirs...\n")
 	CreateConfigBaseDirs(clConfig)
