@@ -23,8 +23,8 @@ Generate manifests for multiple Kubernetes clusters and teams from a single repo
 * Install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
 * Install Helm: https://helm.sh/docs/intro/install/
 
-## Download, generate and deploy
-Download k8s-onerepo binary and example
+## Run Example
+Download k8s-onerepo binary and example var folder
 ```shell
 $ git clone https://github.com/bartvanbenthem/k8s-onerepo.git
 ```
