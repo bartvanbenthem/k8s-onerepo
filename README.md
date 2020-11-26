@@ -2,7 +2,7 @@
 Generate manifests for multiple Kubernetes clusters and teams from a single repository.
 * Consistency in configuration across a multi-cloud landscape.
 * Separate the configuration release from the deployment process.
-* Perfect for GitOps when combined with: ArgoCD, Flux, Jenkins, etc.
+* Perfect for GitOps when combined with: ArgoCD, Flux, JenkinsX, etc.
 
 ## project structure
 ```shell
