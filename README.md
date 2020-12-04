@@ -2,7 +2,7 @@
 Generate manifests for multiple Kubernetes clusters and teams from a single repository.
 * Consistency in configuration across a multi-cloud landscape.
 * Separate the configuration release from the deployment process.
-* Perfect for GitOps when combined with: ArgoCD, Flux or JenkinsX.
+* Perfect for integration with: Jenkins, Azure DevOps, ArgoCD or Flux.
 
 ## project structure
 ```shell
@@ -47,4 +47,4 @@ https://github.com/bartvanbenthem/k8s-onerepo/blob/master/config/README.md
 The Example stack contains the following K8s native service configurations:
 * Nginx ingress
 * Prometheus Operator
-* Grafana, Loki and Promtail
+* Grafana Loki and Promtail
