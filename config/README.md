@@ -93,6 +93,10 @@ curl http://127.0.0.1:3100/api/prom/label
 
 ## Remove Configuration
 ```shell
+# remove k8s components
+kubectl delete-f ./config/$cluster/generic-cluster.yaml
+kubectl delete -f ./config/$cluster/team-alpha.yaml
+kubectl delete -f ./config/$cluster/team-beta.yaml
 # remove helm charts
 helm uninstall co-nginx --namespace co-ingress
 helm uninstall co-nginx-internal --namespace co-ingress-internal
