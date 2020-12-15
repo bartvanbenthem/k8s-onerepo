@@ -13,11 +13,6 @@ helm install co-nginx \
   -f ./config/$cluster/nginx-helm.yaml \
   ./config/helmcharts/ingress-nginx --namespace co-ingress
 
-# install nginx ingress controller for internal traffic
-helm install co-nginx-internal \
-  -f ./config/$cluster/nginx-internal-helm.yaml \
-  ./config/helmcharts/ingress-nginx --namespace co-ingress-internal
-
 # install prometheus operator
 helm install co-prometheus \
   -f ./config/$cluster/prometheus-helm.yaml \
