@@ -3,11 +3,6 @@ nginx:
     name: metrics
     namespace: co-ingress
     port: 10254
-nginxinternal:
-  service:
-    name: metrics
-    namespace: co-ingress-internal
-    port: 10254
 nginxservicemonitor:
   namespace: co-monitoring
   port: metrics

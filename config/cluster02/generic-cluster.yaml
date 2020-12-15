@@ -10,14 +10,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: co-ingress-internal
-  labels:
-    name: co-ingress-internal
-    tenant: cloud-operations
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: co-monitoring
   labels:
     name: co-monitoring

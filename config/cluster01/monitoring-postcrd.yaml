@@ -13,21 +13,6 @@ spec:
   - name: metrics
     port: 10254
 ---
-kind: Service
-apiVersion: v1
-metadata:
-  name: co-prometheus-kube-prometh-nginx-ingress
-  namespace: co-ingress-internal
-  labels:
-    app: ingress-nginx
-    release: co-prometheus
-spec:
-  selector:
-    app.kubernetes.io/name: ingress-nginx
-  ports:
-  - name: metrics
-    port: 10254
----
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -46,4 +31,3 @@ spec:
   namespaceSelector:
     matchNames:
     - co-ingress
-    - co-ingress-internal

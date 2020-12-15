@@ -13,21 +13,6 @@ spec:
   - name: {{.nginx.service.name}}
     port: {{.nginx.service.port}}
 ---
-kind: Service
-apiVersion: v1
-metadata:
-  name: co-prometheus-kube-prometh-nginx-ingress
-  namespace: {{.nginxinternal.service.namespace}}
-  labels:
-    app: ingress-nginx
-    release: co-prometheus
-spec:
-  selector:
-    app.kubernetes.io/name: ingress-nginx
-  ports:
-  - name: {{.nginxinternal.service.name}}
-    port: {{.nginxinternal.service.port}}
----
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -46,4 +31,3 @@ spec:
   namespaceSelector:
     matchNames:
     - {{.nginx.service.namespace}}
-    - {{.nginxinternal.service.namespace}}
