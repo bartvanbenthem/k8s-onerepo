@@ -95,12 +95,11 @@ kubectl delete -f ./config/$cluster/team-beta.yaml
 
 # remove helm charts
 helm uninstall co-nginx --namespace co-ingress
-helm uninstall co-nginx-internal --namespace co-ingress-internal
 helm uninstall co-prometheus --namespace co-monitoring
 helm uninstall co-promtail --namespace co-monitoring
 helm uninstall co-loki --namespace co-monitoring
 
 # delete all namespaces
-kubectl delete ns co-ingress co-ingress-internal co-maintenance co-monitoring
+kubectl delete ns co-ingress co-maintenance co-monitoring
 
 ```
