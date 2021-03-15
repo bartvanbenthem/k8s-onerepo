@@ -1,7 +1,7 @@
 controller:
-  replicaCount: 2
+  replicaCount: 1
   ingressClass: nginx
   prometheus:
     create: true
   service:
-    externalIPs: [192.168.2.163]
+    externalIPs: [172.19.126.87]
