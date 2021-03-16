@@ -20,7 +20,10 @@ helm install co-prometheus \
 # get grafana admin password
 kubectl get secret --namespace co-monitoring co-prometheus-grafana \
   -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
-    
+
+# deploy these manifests after required CRD are created by HELM charts
+kubectl apply -f ./config/$cluster/monitoring-postcrd.yaml
+
 # install loki
 helm install co-loki ./config/helmcharts/loki --namespace co-monitoring
 
@@ -30,47 +33,10 @@ helm install co-promtail \
   ./config/helmcharts/promtail --namespace co-monitoring
 #--set "loki.serviceName=co-loki"
 
-# deploy these manifests after required CRD are created by HELM charts
-kubectl apply -f ./config/$cluster/monitoring-postcrd.yaml
-
 ```
 
 #### Test and expose (do not use in production)
 ``` shell
-# Expose Prometheus Operator monitoring interfaces
-cat <<EOF | kubectl apply -f -
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: co-monitoring
-  namespace: co-monitoring
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-spec:
-  spec:
-  rules:
-  - host: prometheus
-    http:
-      paths:
-        - path: /
-          backend:
-            serviceName: co-prometheus-kube-prometh-prometheus
-            servicePort: 9090
-  - host: grafana
-    http:
-      paths:
-        - path: /
-          backend:
-            serviceName: co-prometheus-grafana
-            servicePort: 80
-  - host: alertmanager
-    http:
-      paths:
-        - path: /
-          backend:
-            serviceName: co-prometheus-kube-prometh-alertmanager 
-            servicePort: 9093
-EOF
 
 # test promtail metrics working
 kubectl --namespace co-monitoring port-forward daemonset/co-promtail 3101 
@@ -80,89 +46,6 @@ curl http://127.0.0.1:3101/metrics
 kubectl --namespace co-monitoring port-forward service/co-loki 3100
 curl http://127.0.0.1:3100/api/prom/label
 
-```
-#### Grafana config
-* Import nginx ingress dashboard: 9614 
-* Add the Loki datasource
-
-### prometheus operator and service monitor example
-```shell
-# prometheus operator and service monitor example
-cat <<EOF | kubectl apply -f -
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: example-app
-  namespace: team-alpha-dev
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: example-app
-  template:
-    metadata:
-      labels:
-        app: example-app
-    spec:
-      containers:
-      - name: example-app
-        image: fabxc/instrumented_app
-        ports:
-        - name: metrics
-          containerPort: 8080
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: example-app
-  namespace: team-alpha-dev
-  labels:
-    app: example-app
-    release: co-prometheus
-spec:
-  selector:
-    app: example-app
-  ports:
-  - name: metrics
-    port: 3454
-    targetPort: 8080
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: example-app
-  namespace: team-alpha-dev
-  labels:
-    team: frontend
-    release: co-prometheus
-spec:
-  selector:
-    matchLabels:
-      app: example-app
-  endpoints:
-  - port: metrics
-  namespaceSelector:
-    matchNames:
-    - team-alpha-dev
----
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: example-app
-  namespace: team-alpha-dev
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-spec:
-  spec:
-  rules:
-  - host: example-app
-    http:
-      paths:
-        - path: /metrics
-          backend:
-            serviceName: example-app
-            servicePort: 3454
-EOF
 ```
 
 
